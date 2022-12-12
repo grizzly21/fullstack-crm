@@ -1,0 +1,73 @@
+<div class="container">
+  <form
+    class="form"
+    [formGroup]="registerForm"
+    (ngSubmit)="onRegister()"
+  >
+    <div class="form-header">
+      <a class="form-link">back</a>
+      <a class="form-link" routerLink="../login">login</a>
+    </div>
+    <div class="form-title">
+      <h2 class="form-title-name">register</h2>
+    </div>
+    <div class="form-inputs">
+      <label for="email">email</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+      >
+      <span
+        class="red-text"
+        *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+      >enter right email</span>
+      <label for="name">name</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+      >
+      <span
+        class="red-text"
+        *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched"
+      >enter your name</span>
+      <label for="password">password</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+      >
+      <span
+        class="red-text"
+        *ngIf="registerForm.get('password')?.invalid
+        && registerForm.get('password')?.touched
+        && registerForm.get('password')?.errors?.['required']"
+      >enter password</span>
+      <span
+        class="red-text"
+        *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.errors?.['minlength']"
+      >min length must be 6 symbols</span>
+      <label for="confirmPassword">confirm password</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        formControlName="confirmPassword"
+      >
+      <span
+        class="red-text"
+        *ngIf="this.registerForm.get('password')?.value
+        !== this.registerForm.get('confirmPassword')?.value"
+      >password not matched</span>
+    </div>
+    <div class="form-action-button">
+      <button
+        type="submit"
+        [disabled]="registerForm.invalid || this.registerForm.get('password')?.value
+        !== this.registerForm.get('confirmPassword')?.value"
+      >
+        register
+      </button>
+    </div>
+  </form>
+</div>
