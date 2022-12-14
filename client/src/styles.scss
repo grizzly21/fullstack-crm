@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Rubik', sans-serif;
+}
+
+a{
+  cursor: pointer;
+  text-decoration: none;
+}
+
+body, html{
+  height: 100%;
+}
+
+body {
+  background: rgb(244, 239, 251);
+  background: linear-gradient(
+      45deg,
+      rgba(244, 239, 251, 1) 0%,
+      rgba(231, 234, 244, 1) 100%
+  );
+}

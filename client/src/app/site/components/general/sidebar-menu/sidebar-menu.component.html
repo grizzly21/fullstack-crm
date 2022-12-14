@@ -1,0 +1,36 @@
+<div class="sidebar" [ngClass]="toggle ? 'sidebar-open' : 'sidebar-close'">
+  <div class="logo">
+    <span>LOGO</span>
+  </div>
+  <hr>
+  <ul>
+    <li routerLink="/analytics">
+      <i class="pi pi-chart-line"></i>
+      <a>Показники</a>
+    </li>
+    <li routerLink="/goods">
+      <i class="pi pi-shopping-cart"></i>
+      <a>Товари</a>
+    </li>
+    <li routerLink="purchases">
+      <i class="bx bx-cart-download bx-sm"></i>
+      <a>Закупки</a>
+    </li>
+    <li routerLink="contractors">
+      <i class="bx bx-user bx-sm"></i>
+      <a>Контрагенти</a>
+    </li>
+    <li routerLink="sales">
+      <i class="bx bx-cart bx-sm"></i>
+      <a>Продажі</a>
+    </li>
+    <li routerLink="money">
+      <i class="bx bx-wallet-alt bx-sm"></i>
+      <a>Гроші</a>
+    </li>
+    <li routerLink="tasks">
+      <i class="bx bx-task bx-sm"></i>
+      <a >Завдання</a>
+    </li>
+  </ul>
+</div>

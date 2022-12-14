@@ -4,12 +4,12 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {User} from "../common/interfaces";
-import {AuthService} from "../common/auth.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss', '../login/login.component.scss']
+  styleUrls: ['../login/login.component.scss']
 })
 export class RegisterComponent implements OnInit, OnDestroy {
 
@@ -54,7 +54,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.aSab = this.authService.register(user).subscribe(
       () => {
         this.registerForm.reset()
-        this.router.navigate(['auth/login'])
+        this.router.navigate(['/login'], {
+          queryParams: {
+            registered: true
+          }
+        })
       },
       err => {
         this.registerForm.reset()
@@ -65,6 +69,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.aSab.unsubscribe()
+    //this.aSab.unsubscribe()
   }
 }

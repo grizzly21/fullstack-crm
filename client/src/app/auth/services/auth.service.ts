@@ -8,7 +8,7 @@ import {Observable, tap} from "rxjs";
 })
 export class AuthService {
 
-  private token: string = ''
+  private token: string = localStorage.getItem('auth-token')?.toString() || ''
 
   constructor(private http: HttpClient) {
   }
@@ -35,5 +35,15 @@ export class AuthService {
 
   getToken(): string {
     return this.token
+  }
+
+  isAuthenticated(): boolean{
+    console.log('is auth')
+    return !!this.token
+  }
+
+  logout(){
+    this.token = ''
+    localStorage.clear()
   }
 }

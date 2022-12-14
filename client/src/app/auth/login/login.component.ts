@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
-import {Router} from "@angular/router";
-import {AuthService} from "../common/auth.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -17,15 +17,26 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
     })
+
+    this.route.queryParams.subscribe(
+      (params) => {
+        if(params['registered']){
+          // message
+        }else if(params['accessDenied']){
+          //message
+        }
+      }
+    )
   }
 
   onLogin(){
@@ -33,7 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.aSab = this.authService.login(this.loginForm.value).subscribe(
       () => {
-        this.router.navigate(['dashboard/indicators'])
+        this.router.navigate(['/analytics'])
       },
       error => {
         this.loginForm.reset()
@@ -44,6 +55,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.aSab.unsubscribe()
+    //this.aSab.unsubscribe()
   }
 }
