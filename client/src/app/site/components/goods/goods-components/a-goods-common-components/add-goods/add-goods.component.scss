@@ -1,0 +1,25 @@
+::ng-deep .p-fileupload .p-fileupload-buttonbar{
+  height: 60px;
+  padding: 8px;
+
+  ::ng-deep span, p-button{
+    font-size: 14px;
+  }
+}
+
+.chooseStyle{
+  background-color: red;
+}
+
+::ng-deep .p-fileupload .p-fileupload-content{
+  padding: 0;
+
+  ::ng-deep button.p-element{
+    width: 40px;
+  }
+}
+
+textarea{
+  resize: vertical;
+  min-height: 70px;
+}
