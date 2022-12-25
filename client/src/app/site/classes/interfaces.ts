@@ -8,3 +8,11 @@ export interface IGood {
   price: number,
   category: string,
 }
+
+export interface ITask{
+  sequenceNumber: number,
+  title: string,
+  description: string,
+  status: string,
+  date: string
+}

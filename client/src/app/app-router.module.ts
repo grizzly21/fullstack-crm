@@ -11,6 +11,7 @@ import {PostingComponent} from "./site/components/goods/goods-components/posting
 import {AllGoodsComponent} from "./site/components/goods/goods-components/all-goods/all-goods.component";
 import {LeavingsComponent} from "./site/components/goods/goods-components/leavings/leavings.component";
 import {InventoryComponent} from "./site/components/goods/goods-components/inventory/inventory.component";
+import {TasksComponent} from "./site/components/tasks/tasks.component";
 
 const routes: Routes = [
   {
@@ -32,7 +33,8 @@ const routes: Routes = [
           {path: 'leavings', component: LeavingsComponent},
           {path: 'inventory', component: InventoryComponent}
         ]
-      }
+      },
+      {path: 'tasks', component: TasksComponent}
     ]
   }
 ];

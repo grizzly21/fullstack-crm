@@ -24,6 +24,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DropdownModule} from "primeng/dropdown";
 import {InputNumberModule} from "primeng/inputnumber";
 import {FileUploadModule} from "primeng/fileupload";
+import { TasksComponent } from './components/tasks/tasks.component';
+import {CardModule} from "primeng/card";
+import {DividerModule} from "primeng/divider";
+import { AddTaskComponent } from './components/tasks/pop-up/add-task/add-task.component';
+import {CalendarModule} from "primeng/calendar";
 
 @NgModule({
   declarations: [
@@ -36,7 +41,9 @@ import {FileUploadModule} from "primeng/fileupload";
     PostingComponent,
     LeavingsComponent,
     InventoryComponent,
-    AddGoodsComponent
+    AddGoodsComponent,
+    TasksComponent,
+    AddTaskComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +61,10 @@ import {FileUploadModule} from "primeng/fileupload";
     BrowserAnimationsModule,
     DropdownModule,
     InputNumberModule,
-    FileUploadModule
+    FileUploadModule,
+    CardModule,
+    DividerModule,
+    CalendarModule
   ],
   providers: [],
   bootstrap: [SiteContainer]

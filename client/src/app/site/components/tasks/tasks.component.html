@@ -1,0 +1,44 @@
+<h3 class="page-header">Tasks</h3>
+<p-divider></p-divider>
+<div class="card">
+  <p-toolbar [style]="{'padding': '1rem'}">
+    <ng-template pTemplate="left">
+      <button pButton pRipple
+              label="Додати задачу"
+              icon="pi pi-plus"
+              class="p-button-success mr-2"
+              (click)="showDialog()"></button>
+    </ng-template>
+    <ng-template pTemplate="right">
+      <span class="p-input-icon-left">
+    <i class="pi pi-search"></i>
+    <input type="text" pInputText placeholder="Search" />
+</span>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table [style]="{'margin-top': '20px'}"
+    #dt [value]="tasks" [rowHover]="true">
+    <ng-template pTemplate="header">
+      <tr>
+        <th [style]="{'width': '2rem'}">#</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th [style]="{'width': '7rem'}">Time</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-task>
+      <tr>
+        <td>{{task.sequenceNumber}}</td>
+        <td>{{task.title}}</td>
+        <td>{{task.description}}</td>
+        <td>{{task.status}}</td>
+        <td>{{task.date | date:'dd.MM.YYYY'}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pop-up">
+  <app-add-task [addDialog]="showAddDialog" (hideDialog)="hideDialog($event)"></app-add-task>
+</div>
