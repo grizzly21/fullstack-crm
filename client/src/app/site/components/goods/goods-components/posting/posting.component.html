@@ -1,1 +1,45 @@
-<p>posting works!</p>
+<div class="card">
+  <p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="Оприбуткування"
+        icon="pi pi-plus"
+        class="p-button-success mr-2"
+        (click)="showDialog()"
+      ></button>
+    </ng-template>
+    <ng-template pTemplate="right">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="Search" (input)="dt.filterGlobal(getEventValue($event), 'contains')"/>
+      </span>
+    </ng-template>
+  </p-toolbar>
+
+  <!-- Table for all goods by primeNG -->
+  <p-table #dt [value]="posting" [rowHover]="true" [globalFilterFields]="['time', 'id']">
+    <ng-template pTemplate="header">
+      <tr>
+        <th [style]="{ width: '2rem' }">№</th>
+        <th>Час</th>
+        <th>На склад</th>
+        <th>Організація</th>
+        <th>Сума</th>
+        <th [style]="{ width: '2.5rem' }">Валюта</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-post>
+      <tr>
+        <td>{{ [post.id] }}</td>
+        <td>{{ [post.time] }}</td>
+        <td>{{ [post.storage] }}</td>
+        <td>{{ [post.company] }}</td>
+        <td>{{ [post.total] }}</td>
+        <td>{{ [post.currency] }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pop-up"></div>

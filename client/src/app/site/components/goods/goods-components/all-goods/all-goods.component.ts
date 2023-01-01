@@ -1,55 +1,35 @@
-import {Component} from '@angular/core';
-import {IGood} from "../../../../classes/interfaces";
+import { GoodsService } from './../../../../classes/services/goods.service';
+import { Component, OnInit } from '@angular/core';
+import { IGood } from '../../../../classes/interfaces';
 
 @Component({
   selector: 'app-all-goods',
   templateUrl: './all-goods.component.html',
-  styleUrls: ['./all-goods.component.scss']
+  styleUrls: ['./all-goods.component.scss'],
 })
-export class AllGoodsComponent {
+export class AllGoodsComponent implements OnInit {
+  showAddDialog: boolean = false;
+  goods: IGood[] = [];
 
-  showAddDialog: boolean = false
+  constructor(private goodsService: GoodsService) {}
 
-  goods: IGood[] = [
-    {
-      id: "2",
-      name: "iphone",
-      imageUrl: "none",
-      description: "iphone",
-      article: "none",
-      category: "phones",
-      code: 431123,
-      price: 1200
-    },
-    {
-      id: "3",
-      name: "iphone",
-      imageUrl: "none",
-      description: "iphone",
-      article: "none",
-      category: "phones",
-      code: 431123,
-      price: 1200
-    },
-    {
-      id: "4",
-      name: "iphone",
-      imageUrl: "none",
-      description: "iphone",
-      article: "none",
-      category: "phones",
-      code: 431123,
-      price: 1200
-    },
-  ]
-
-  showDialog() {
-    this.showAddDialog = true
-    console.log(this.showAddDialog)
+  ngOnInit() {
+    this.goodsService.getAllGoods().subscribe(
+      (next) => {
+        this.goods = next;
+        console.log(next);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
   }
 
-  hideDialog(event: any){
-    this.showAddDialog = false
-    console.log(this.showAddDialog)
+  showDialog() {
+    this.showAddDialog = true;
+  }
+
+  hideDialog(event: any) {
+    this.showAddDialog = false;
   }
 }

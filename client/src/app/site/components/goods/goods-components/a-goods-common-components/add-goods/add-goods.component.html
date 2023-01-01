@@ -1,52 +1,68 @@
 <p-dialog
   [(visible)]="addDialog"
   [modal]="true"
-  [style]="{width: '650px'}"
+  [style]="{ width: '650px' }"
   header="Add Good"
   (onHide)="closeDialog()"
-  styleClass="p-fluid">
-
+  styleClass="p-fluid"
+>
   <ng-template pTemplate="content">
-    <form
-      [formGroup]="addGoodForm"
-      (ngSubmit)="onAddGood()"
-      id="addForm"
-    >
+    <form [formGroup]="addGoodForm" (ngSubmit)="onAddGood()" id="addForm">
       <div class="field">
         <label for="name">Name</label>
-        <input type="text" pInputText id="name"
-               formControlName="name"
-               required autofocus autocomplete="off"/>
+        <input
+          type="text"
+          pInputText
+          id="name"
+          formControlName="name"
+          required
+          autofocus
+          autocomplete="off"
+        />
       </div>
       <div class="field">
-        <p-fileUpload name="image"
-                      accept="image/*"
-                      [auto]="true"
-                      (onSelect)="selectImage($event)"
+        <p-fileUpload
+          name="image"
+          accept="image/*"
+          [auto]="true"
+          (onSelect)="selectImage($event)"
         >
         </p-fileUpload>
       </div>
       <div class="field">
         <label for="description">Description</label>
-        <textarea id="description"
-                  formControlName="description"
-                  pInputTextarea required rows="3" cols="20"></textarea>
+        <textarea
+          id="description"
+          formControlName="description"
+          pInputTextarea
+          required
+          rows="3"
+          cols="20"
+        ></textarea>
       </div>
       <div class="field">
         <label for="category">Category</label>
-        <p-dropdown inputId="category"
-                    formControlName="category"
-                    placeholder="Select" [options]="categories">
+        <p-dropdown
+          inputId="category"
+          formControlName="category"
+          placeholder="Select"
+          [options]="categories"
+        >
           <ng-template let-option pTemplate="item">
-            <span>{{option}}</span>
+            <span>{{ option }}</span>
           </ng-template>
         </p-dropdown>
       </div>
       <div class="field">
         <label for="article">Article</label>
-        <input type="text" pInputText id="article"
-               formControlName="article"
-               required autocomplete="off"/>
+        <input
+          type="text"
+          pInputText
+          id="article"
+          formControlName="article"
+          required
+          autocomplete="off"
+        />
       </div>
       <div class="formgrid grid">
         <div class="field col">
@@ -55,23 +71,35 @@
         </div>
         <div class="field col">
           <label for="price">Price</label>
-          <p-inputNumber id="price"
-                         formControlName="price"
-                         mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+          <p-inputNumber
+            id="price"
+            formControlName="price"
+            mode="currency"
+            currency="USD"
+            locale="en-US"
+          ></p-inputNumber>
         </div>
       </div>
     </form>
   </ng-template>
   <ng-template pTemplate="footer">
-    <button pButton pRipple
-            label="Cancel" icon="pi pi-times"
-            class="p-button-text" (click)="closeDialog()"></button>
-    <button pButton pRipple
-            label="Save" icon="pi pi-check"
-            class="p-button-text"
-            type="submit"
-            form="addForm"
-            [disabled]="addGoodForm.invalid"
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="closeDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      type="submit"
+      form="addForm"
+      [disabled]="addGoodForm.invalid"
     ></button>
   </ng-template>
 </p-dialog>

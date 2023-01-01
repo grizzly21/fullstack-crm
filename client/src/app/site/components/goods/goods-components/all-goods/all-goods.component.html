@@ -10,8 +10,8 @@
   <p-table #dt [value]="goods" [rowHover]="true">
     <ng-template pTemplate="header">
       <tr>
-        <th>Name</th>
         <th>image</th>
+        <th>Name</th>
         <th>code</th>
         <th>article</th>
         <th>price</th>
@@ -19,8 +19,8 @@
     </ng-template>
     <ng-template pTemplate="body" let-good>
       <tr>
-        <td>{{good.name}}</td>
         <td>{{good.imageUrl}}</td>
+        <td>{{good.name}}</td>
         <td>{{good.code}}</td>
         <td>{{good.article}}</td>
         <td>{{good.price}}</td>
