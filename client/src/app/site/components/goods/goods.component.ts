@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {MenuItem} from "primeng/api";
+import {GoodsService} from "../../classes/services/goods.service";
 
 @Component({
   selector: 'app-goods',
@@ -9,6 +10,10 @@ import {MenuItem} from "primeng/api";
 export class GoodsComponent implements OnInit{
 
   items!: MenuItem[]
+
+  constructor(private goodsService: GoodsService) {
+  }
+
   ngOnInit() {
     this.items = [
       {label: 'Товари', routerLink: 'all-goods'},
@@ -16,9 +21,14 @@ export class GoodsComponent implements OnInit{
       {label: 'Залишки', routerLink: 'leavings'},
       {label: 'Інвентаризація', routerLink: 'inventory'},
     ]
-  }
 
-  itemChange(event: any){
-    console.log(event)
+    this.goodsService.getAllCategories().subscribe(
+      next => {
+        console.log('all categories have get', next)
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 }

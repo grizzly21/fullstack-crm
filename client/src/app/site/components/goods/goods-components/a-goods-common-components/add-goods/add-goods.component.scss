@@ -23,3 +23,7 @@ textarea{
   resize: vertical;
   min-height: 70px;
 }
+
+::ng-deep .p-dialog-content {
+  overflow-y: clip;
+}

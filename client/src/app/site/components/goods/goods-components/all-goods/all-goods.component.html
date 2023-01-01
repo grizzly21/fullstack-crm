@@ -1,16 +1,21 @@
 <div class="card">
   <p-toolbar styleClass="mb-4 gap-2">
     <ng-template pTemplate="left">
-      <button pButton pRipple label="Додати товар" icon="pi pi-plus" class="p-button-success mr-2"
-              (click)="showDialog()"></button>
+      <button pButton pRipple
+              label="Додати товар"
+              icon="pi pi-plus"
+              class="p-button-success mr-2"
+              (click)="showDialog()">
+      </button>
     </ng-template>
   </p-toolbar>
 
   <!-- Table for all goods by primeNG -->
-  <p-table #dt [value]="goods" [rowHover]="true">
+  <p-table #dt [value]="goodsService.allGoods" [rowHover]="true">
     <ng-template pTemplate="header">
       <tr>
         <th>image</th>
+        <th>Category</th>
         <th>Name</th>
         <th>code</th>
         <th>article</th>
@@ -19,15 +24,13 @@
     </ng-template>
     <ng-template pTemplate="body" let-good>
       <tr>
-        <td>{{good.imageUrl}}</td>
+        <td><img [src]="link + good.attachments[0]?.id" height="40px" alt="none"></td>
+        <td>{{good.category.name}}</td>
         <td>{{good.name}}</td>
         <td>{{good.code}}</td>
         <td>{{good.article}}</td>
-        <td>{{good.price}}</td>
+        <td>{{good.price | currency}}</td>
       </tr>
     </ng-template>
   </p-table>
-</div>
-<div class="pop-up">
-  <app-add-goods [addDialog]="showAddDialog" (hideDialog)="hideDialog($event)"></app-add-goods>
 </div>

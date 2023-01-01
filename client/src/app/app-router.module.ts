@@ -12,6 +12,8 @@ import {AllGoodsComponent} from "./site/components/goods/goods-components/all-go
 import {LeavingsComponent} from "./site/components/goods/goods-components/leavings/leavings.component";
 import {InventoryComponent} from "./site/components/goods/goods-components/inventory/inventory.component";
 import {TasksComponent} from "./site/components/tasks/tasks.component";
+import {UserProfileComponent} from "./site/components/general/user-profile/user-profile.component";
+import {EditCategoryComponent} from "./site/components/general/user-profile/edit-category/edit-category.component";
 
 const routes: Routes = [
   {
@@ -34,7 +36,12 @@ const routes: Routes = [
           {path: 'inventory', component: InventoryComponent}
         ]
       },
-      {path: 'tasks', component: TasksComponent}
+      {path: 'tasks', component: TasksComponent},
+      {
+        path: 'user-profile', component: UserProfileComponent, children: [
+          {path: 'edit-category', component: EditCategoryComponent}
+        ]
+      }
     ]
   }
 ];

@@ -1,26 +1,62 @@
-import { tap } from 'rxjs';
-import { Observable } from 'rxjs';
-import { IGood } from './../interfaces';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {fromEvent, map, mergeMap, Observable, tap} from 'rxjs';
+import {ICategory, IGood} from '../interfaces';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class GoodsService {
-  constructor(private http: HttpClient) {}
-  private apiUrl = 'http://localhost:8080/'
-
   public allGoods: IGood[] = []
+  public categories: ICategory[] = []
+  private readonly apiUrl = 'http://localhost:8080/'
 
-  getAllGoods(): Observable<IGood[]>{
+  constructor(private http: HttpClient) {
+  }
+
+  uploadImage(image: FormData) {
+    return this.http.post(`${this.apiUrl}attachments`, image)
+  }
+
+  getImageById(id: string) {
+    return this.http.get(this.apiUrl + "attachments/" + id, {responseType: "blob"})
+      .pipe(
+        mergeMap(res => this.toBase64(res))
+      ).subscribe(
+        next => {
+          console.log(next)
+        },
+        error => {
+          console.log(error)
+        }
+      )
+  }
+
+  getAllGoods(): Observable<IGood[]> {
     return this.http.get<IGood[]>(this.apiUrl + 'products')
-    .pipe(
-      tap((goods) => {
-        this.allGoods = goods
-      })
-    )
+      .pipe(
+        tap((goods) => {
+          this.allGoods = goods
+        })
+      )
   }
 
   addGoods(good: IGood): Observable<IGood> {
     return this.http.post<IGood>(this.apiUrl + 'products', good)
+  }
+
+
+  getAllCategories(): Observable<ICategory[]>{
+    return this.http.get<ICategory[]>(this.apiUrl + 'categories')
+      .pipe(
+        tap((categories) => {
+          this.categories = categories
+        })
+      )
+  }
+
+  private toBase64(blob: Blob): Observable<string> {
+    const reader = new FileReader()
+    reader.readAsDataURL(blob)
+    return fromEvent(reader, 'load')
+      .pipe(map(() => reader.result as string))
   }
 }
