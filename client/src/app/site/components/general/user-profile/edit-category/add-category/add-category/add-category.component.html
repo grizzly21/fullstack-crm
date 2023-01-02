@@ -1,0 +1,39 @@
+<div class="grid p-fluid">
+  <div class="col-12">
+    <form [formGroup]="addCategoryForm" (ngSubmit)="onAddCategory()" novalidate>
+      <div class="field">
+        <label for="name">Назва категорії</label>
+        <input
+          type="text"
+          pInputText
+          id="name"
+          formControlName="name"
+          required
+          autocomplete="off"
+        />
+      </div>
+      <div class="field">
+        <label for="category">Батьківська категорія</label>
+        <p-dropdown
+          id="category"
+          [options]="editComp.catArray"
+          formControlName="parentId"
+          optionLabel="label"
+          optionValue="data"
+          [autoDisplayFirst]="false"
+          placeholder="Залишіть пустим якщо небхідно"
+        >
+        </p-dropdown>
+      </div>
+      <div class="field">
+        <button
+          pButton
+          pRipple
+          label="Додати"
+          class="p-button-raised"
+          type="submit"
+        ></button>
+      </div>
+    </form>
+  </div>
+</div>

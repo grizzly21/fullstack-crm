@@ -6,7 +6,7 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class GoodsService {
   public allGoods: IGood[] = []
-  public categories: ICategory[] = []
+  public categories: ICategory[] | any []= []
   private readonly apiUrl = 'http://localhost:8080/'
 
   constructor(private http: HttpClient) {
@@ -48,9 +48,22 @@ export class GoodsService {
     return this.http.get<ICategory[]>(this.apiUrl + 'categories')
       .pipe(
         tap((categories) => {
-          this.categories = categories
+          this.categories = categories.map((item) => {
+            return {
+              label: item.name,
+              data: item.id,
+              children: item.children,
+              parentId: item.parentId,
+              expandedIcon: "pi pi-folder-open",
+              collapsedIcon: "pi pi-folder",
+            }
+          })
         })
       )
+  }
+
+  addCategories(category: {name: string, parentId: number}): Observable<number>{
+    return this.http.post<number>(this.apiUrl + 'categories', category)
   }
 
   private toBase64(blob: Blob): Observable<string> {

@@ -36,7 +36,8 @@
       </div>
       <div class="field">
         <label for="category">Category</label>
-        <p-dropdown id="category" [options]="goodsService.categories" formControlName="categoryId" optionLabel="name" optionValue="id"></p-dropdown>
+        <p-treeSelect id="category" [options]="goodsService.categories" formControlName="categoryId">
+        </p-treeSelect>
       </div>
       <div class="field">
         <label for="article">Article</label>

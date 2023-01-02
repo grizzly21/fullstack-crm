@@ -14,6 +14,7 @@ import {InventoryComponent} from "./site/components/goods/goods-components/inven
 import {TasksComponent} from "./site/components/tasks/tasks.component";
 import {UserProfileComponent} from "./site/components/general/user-profile/user-profile.component";
 import {EditCategoryComponent} from "./site/components/general/user-profile/edit-category/edit-category.component";
+import {AuthGuard} from "./auth/common/auth.guard";
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: '', component: SiteContainer, children: [
+    path: '', component: SiteContainer, canActivate: [AuthGuard], children: [
       {path: '', redirectTo: 'analytics', pathMatch: 'full'},
       {path: 'analytics', component: AnalyticsComponent},
       {

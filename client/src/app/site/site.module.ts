@@ -40,7 +40,10 @@ import {
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {UserProfileComponent} from './components/general/user-profile/user-profile.component';
 import { EditCategoryComponent } from './components/general/user-profile/edit-category/edit-category.component'
-
+import {AuthGuard} from "../auth/common/auth.guard";
+import {TreeModule} from "primeng/tree";
+import { AddCategoryComponent } from './components/general/user-profile/edit-category/add-category/add-category/add-category.component';
+import {TreeSelectModule} from 'primeng/treeselect'
 
 @NgModule({
   declarations: [
@@ -59,6 +62,7 @@ import { EditCategoryComponent } from './components/general/user-profile/edit-ca
     AddPostingsComponent,
     UserProfileComponent,
     EditCategoryComponent,
+    AddCategoryComponent,
   ],
   imports: [
     CommonModule,
@@ -81,13 +85,17 @@ import { EditCategoryComponent } from './components/general/user-profile/edit-ca
     DividerModule,
     CalendarModule,
     DynamicDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    TreeModule,
+    TreeSelectModule
   ],
   providers: [GoodsService, {
     provide: HTTP_INTERCEPTORS,
     multi: true,
     useClass: TokenInterceptor
-  }],
+  },
+    AuthGuard
+  ],
   bootstrap: [SiteContainer],
 })
 export class SiteModule {
