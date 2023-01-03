@@ -16,7 +16,7 @@ export class AddCategoryComponent implements OnInit {
   constructor(
     public editComp: EditCategoryComponent,
     private primengConfig: PrimeNGConfig,
-    private goodsService: GoodsService,
+    public goodsService: GoodsService,
     private ref: DynamicDialogRef
   ) {
     this.primengConfig.overlayOptions = {
@@ -34,16 +34,19 @@ export class AddCategoryComponent implements OnInit {
 
   onAddCategory() {
     this.addCategoryForm.disable()
-    console.log(this.addCategoryForm.value);
 
-    this.goodsService.addCategories(this.addCategoryForm.value).subscribe(
+    let data = {
+      name: this.addCategoryForm.get('name')?.value,
+      parentId: this.addCategoryForm.get('parentId')?.value.data
+    }
+
+    this.goodsService.addCategories(data).subscribe(
       next => {
-        console.log(next)
         this.addCategoryForm.reset()
         this.ref.close()
+        this.editComp.updateCategories()
       },
       err => {
-        console.log(err),
         this.addCategoryForm.reset()
         this.addCategoryForm.enable()
       }

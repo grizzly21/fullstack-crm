@@ -10,7 +10,19 @@
         (click)="showDialog()"
       ></button>
     </ng-template>
+    <ng-template pTemplate="right">
+      <button
+        pButton
+        icon="pi pi-times"
+        class="p-button-danger"
+        label="Delete"
+        (click)="confirmDelete()"
+      ></button>
+    </ng-template>
   </p-toolbar>
-  <p-tree [value]="goodsService.categories" selectionMode="single">
-  </p-tree>
+  <p-tree [value]="goodsService.categories" selectionMode="single" [(selection)]="selectionCategory"></p-tree>
 </div>
+<p-confirmDialog
+  header="Delete"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>

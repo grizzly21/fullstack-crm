@@ -70,6 +70,10 @@ export class GoodsService {
     return this.http.post<number>(this.apiUrl + 'categories', category)
   }
 
+  deleteCategory(id: number) {
+    return this.http.delete(this.apiUrl + 'categories/' + id)
+  }
+
   private toBase64(blob: Blob): Observable<string> {
     const reader = new FileReader()
     reader.readAsDataURL(blob)

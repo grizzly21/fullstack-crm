@@ -9,29 +9,7 @@ import {ITask} from "../../classes/interfaces";
 export class TasksComponent {
   showAddDialog: boolean = false
 
-  tasks: ITask[] = [
-    {
-      sequenceNumber: 1,
-      title: 'title',
-      description: 'deskript',
-      status: 'ready',
-      date: Date.now().toString()
-    },
-    {
-      sequenceNumber: 1,
-      title: 'title',
-      description: 'deskript',
-      status: 'ready',
-      date: Date.now().toString()
-    },
-    {
-      sequenceNumber: 1,
-      title: 'title',
-      description: 'deskript',
-      status: 'ready',
-      date: Date.now().toString()
-    }
-  ]
+  tasks: ITask[] = []
 
   showDialog() {
     this.showAddDialog = true

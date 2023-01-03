@@ -2,47 +2,70 @@ import { AddCategoryComponent } from './add-category/add-category/add-category.c
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { Component, OnInit } from '@angular/core';
 import { GoodsService } from '../../../../classes/services/goods.service';
+import { ConfirmationService, TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'app-edit-category',
   templateUrl: './edit-category.component.html',
   styleUrls: ['./edit-category.component.scss'],
-  providers: [DialogService]
+  providers: [DialogService, ConfirmationService],
 })
 export class EditCategoryComponent implements OnInit {
-  constructor(public goodsService: GoodsService, private dialogService: DialogService) {}
+  constructor(
+    public goodsService: GoodsService,
+    private dialogService: DialogService,
+    private confirmService: ConfirmationService
+  ) {}
 
   ref!: DynamicDialogRef;
-
-  public catArray: any[] = []
+  selectionCategory!: TreeNode;
 
   ngOnInit() {
     this.goodsService.getAllCategories().subscribe(
-      next => {
-        this.catArray = next.map((item) => {
-          return {
-            label: item.name,
-            data: item.id,
-            children: item.children,
-            parentId: item.parentId,
-            expandedIcon: "pi pi-folder-open",
-            collapsedIcon: "pi pi-folder",
-          }
-        })
-
-        console.log(this.catArray)
+      (next) => {
+        console.log(next)
       },
-      error => {
+      (error) => {
         console.error(error);
       }
     );
   }
 
-  showDialog(){
+  confirmDelete() {
+    this.confirmService.confirm({
+      message: 'Are you sure to delete this category?',
+      accept: () => {
+        if(this.selectionCategory !== undefined){
+          console.log(this.selectionCategory)
+          this.goodsService.deleteCategory(this.selectionCategory.data).subscribe(
+            next => {
+              console.log(next)
+              this.updateCategories()
+            },
+            err => {
+              console.log(err)
+              alert(err.error)
+            }
+          )
+        }else {
+          alert('Select category, please!')
+        }
+      }
+    })
+  }
+
+  updateCategories(){
+    this.goodsService.getAllCategories().subscribe(
+      next => {console.log('updated')},
+      err => {console.log('err')}
+    )
+  }
+
+  showDialog() {
     this.ref = this.dialogService.open(AddCategoryComponent, {
       header: 'Додати категорію',
       closable: true,
-      width: '450px'
-    })
+      width: '450px',
+    });
   }
 }

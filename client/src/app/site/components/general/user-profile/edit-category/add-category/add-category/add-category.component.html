@@ -14,16 +14,8 @@
       </div>
       <div class="field">
         <label for="category">Батьківська категорія</label>
-        <p-dropdown
-          id="category"
-          [options]="editComp.catArray"
-          formControlName="parentId"
-          optionLabel="label"
-          optionValue="data"
-          [autoDisplayFirst]="false"
-          placeholder="Залишіть пустим якщо небхідно"
-        >
-        </p-dropdown>
+        <p-treeSelect id="category" [options]="goodsService.categories" formControlName="parentId">
+        </p-treeSelect>
       </div>
       <div class="field">
         <button

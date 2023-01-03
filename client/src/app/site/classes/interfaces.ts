@@ -1,26 +1,26 @@
 export interface IGood {
-  id?: string
-  name: string,
-  attachments: [],
-  description: string,
-  code: number,
-  article: string,
-  price: number,
-  currency: number,
-  categoryId: string,
+  id?: string;
+  name: string;
+  attachments: [];
+  description: string;
+  code: number;
+  article: string;
+  price: number;
+  currency: number;
+  categoryId: string;
 }
 
 export interface ITask {
-  sequenceNumber: number,
-  title: string,
-  description: string,
-  status: string,
-  date: string
+  assignedToId: string | { id: string; email: string; displayName: string };
+  title: string;
+  description: string;
+  status: number;
+  targetDate: string;
 }
 
 export interface ICategory {
   parentId: number | null;
-  children: [],
-  id: number,
-  name: string
+  children: [];
+  id: number;
+  name: string;
 }

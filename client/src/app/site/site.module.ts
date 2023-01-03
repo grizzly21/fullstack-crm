@@ -43,7 +43,8 @@ import { EditCategoryComponent } from './components/general/user-profile/edit-ca
 import {AuthGuard} from "../auth/common/auth.guard";
 import {TreeModule} from "primeng/tree";
 import { AddCategoryComponent } from './components/general/user-profile/edit-category/add-category/add-category/add-category.component';
-import {TreeSelectModule} from 'primeng/treeselect'
+import {TreeSelectModule} from 'primeng/treeselect';
+import {ConfirmDialogModule} from 'primeng/confirmdialog'
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import {TreeSelectModule} from 'primeng/treeselect'
     DynamicDialogModule,
     HttpClientModule,
     TreeModule,
-    TreeSelectModule
+    TreeSelectModule,
+    ConfirmDialogModule
   ],
   providers: [GoodsService, {
     provide: HTTP_INTERCEPTORS,
