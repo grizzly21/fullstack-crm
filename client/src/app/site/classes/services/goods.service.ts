@@ -48,18 +48,22 @@ export class GoodsService {
     return this.http.get<ICategory[]>(this.apiUrl + 'categories')
       .pipe(
         tap((categories) => {
-          this.categories = categories.map((item) => {
-            return {
-              label: item.name,
-              data: item.id,
-              children: item.children,
-              parentId: item.parentId,
-              expandedIcon: "pi pi-folder-open",
-              collapsedIcon: "pi pi-folder",
-            }
-          })
+          this.categories = this.reMapArray(categories)
         })
       )
+  }
+
+  private reMapArray(arr: any[]): any[]{
+    return arr.map((item) => {
+      return {
+        label: item.name,
+        data: item.id,
+        parentId: item.parentId,
+        expandedIcon: "pi pi-folder-open",
+        collapsedIcon: "pi pi-folder",
+        children: this.reMapArray(item.children),
+      }
+    })
   }
 
   addCategories(category: {name: string, parentId: number}): Observable<number>{
