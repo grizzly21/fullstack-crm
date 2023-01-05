@@ -11,10 +11,10 @@ export interface IGood {
 }
 
 export interface ITask {
-  assignedToId: string | { id: string; email: string; displayName: string };
+  assignedToId?: string | { id: string; email: string; displayName: string };
   title: string;
   description: string;
-  status: number;
+  status: number | Record<string, any>;
   targetDate: string;
 }
 

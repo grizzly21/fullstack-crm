@@ -1,54 +1,71 @@
-import {Component, EventEmitter, Input, LOCALE_ID, OnInit, Output} from '@angular/core';
-import {PrimeNGConfig} from "primeng/api";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {formatDate} from "@angular/common";
+import { TaskService } from './../../tasks-service/task.service';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  LOCALE_ID,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { PrimeNGConfig } from 'primeng/api';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
-  styleUrls: ['./add-task.component.scss']
+  styleUrls: ['./add-task.component.scss'],
 })
-export class AddTaskComponent implements OnInit{
+export class AddTaskComponent implements OnInit {
+  @Input() addDialog!: boolean;
+  @Output() hideDialog = new EventEmitter<boolean>();
 
-  @Input() addDialog!: boolean
-  @Output() hideDialog = new EventEmitter<boolean>()
+  statuses!: any[];
+  addTaskForm!: FormGroup;
+  minDate!: Date;
 
-  statuses!: any[]
-  addTaskForm!: FormGroup
-  minDate!: Date
+  constructor(
+    private primengConfig: PrimeNGConfig,
+    private taskService: TaskService
+  ) {}
 
-  constructor(private primengConfig: PrimeNGConfig) {
-  }
-
-  ngOnInit(){
+  ngOnInit() {
     this.primengConfig.overlayOptions = {
       mode: 'overlay',
-      appendTo: 'body'
-    }
+      appendTo: 'body',
+    };
 
     this.statuses = [
-      {label: "To do", value: 'todo'},
-      {label: "In process", value: 'process'},
-      {label: "Complete", value: 'complete'},
-    ]
+      { label: 'To do', value: 0 },
+      { label: 'In process', value: 1 },
+      { label: 'Complete', value: 2 },
+    ];
 
     this.addTaskForm = new FormGroup({
       title: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
       status: new FormControl(null, [Validators.required]),
-      date: new FormControl(null, [Validators.required])
-    })
+      targetDate: new FormControl(null, [Validators.required]),
+    });
 
-    this.minDate = new Date()
+    this.minDate = new Date();
   }
 
-  onAddTask(){
-    console.log(this.addTaskForm.value)
+  onAddTask() {
+    console.log(this.addTaskForm.value);
+
+    this.taskService.addTask(this.addTaskForm.value).subscribe(
+      (next) => {
+        console.log(next);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
   }
 
   closeDialog() {
-    this.addTaskForm.reset()
-    this.addDialog = false
-    this.hideDialog.emit(false)
+    this.addTaskForm.reset();
+    this.addDialog = false;
+    this.hideDialog.emit(false);
   }
 }

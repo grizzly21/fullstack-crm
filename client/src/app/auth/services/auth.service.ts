@@ -7,7 +7,6 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private token: string = localStorage.getItem('auth-token')?.toString() || '';
   private apiUrl: string = 'http://localhost:8080/'
 
   constructor(private http: HttpClient) {}
@@ -19,26 +18,28 @@ export class AuthService {
   login(user: User): Observable<{ token: string }> {
     return this.http.post<{ token: string }>(this.apiUrl + 'login', user).pipe(
       tap(({ token }) => {
-        localStorage.setItem('auth-token', token);
         this.setToken(token);
       })
     );
   }
 
   setToken(token: string) {
-    this.token = token;
+    localStorage.setItem('auth-token', token);
   }
 
-  getToken(): string {
-    return this.token;
+  getToken(): string | undefined {
+    let token = localStorage.getItem('auth-token');
+    if(token !== undefined){
+      return token?.toString()
+    }
+    return undefined
   }
 
   isAuthenticated(): boolean {
-    return !!this.token;
+    return !!localStorage.getItem('auth-token');
   }
 
   logout() {
-    this.token = '';
     localStorage.clear();
   }
 }

@@ -1,3 +1,4 @@
+import { TaskService } from './components/tasks/tasks-service/task.service';
 import {TokenInterceptor} from './classes/token.interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {GoodsService} from './classes/services/goods.service';
@@ -96,7 +97,8 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog'
     multi: true,
     useClass: TokenInterceptor
   },
-    AuthGuard
+    AuthGuard,
+    TaskService
   ],
   bootstrap: [SiteContainer],
 })
