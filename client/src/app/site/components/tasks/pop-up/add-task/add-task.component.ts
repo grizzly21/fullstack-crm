@@ -1,19 +1,15 @@
+import { TasksComponent } from './../../tasks.component';
 import { TaskService } from './../../tasks-service/task.service';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  LOCALE_ID,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DynamicDialogConfig, DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.scss'],
+  providers: [DynamicDialogRef, DynamicDialogConfig, DialogService],
 })
 export class AddTaskComponent implements OnInit {
   @Input() addDialog!: boolean;
@@ -25,19 +21,24 @@ export class AddTaskComponent implements OnInit {
 
   constructor(
     private primengConfig: PrimeNGConfig,
-    private taskService: TaskService
+    public taskService: TaskService,
+    private tasksComponent: TasksComponent,
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig
   ) {}
 
   ngOnInit() {
+    console.log(this.config)
+
     this.primengConfig.overlayOptions = {
       mode: 'overlay',
       appendTo: 'body',
     };
 
     this.statuses = [
-      { label: 'To do', value: 0 },
-      { label: 'In process', value: 1 },
-      { label: 'Complete', value: 2 },
+      { label: 'Не завершений', value: 0 },
+      { label: 'В роботі', value: 1 },
+      { label: 'Виконано', value: 2 },
     ];
 
     this.addTaskForm = new FormGroup({
@@ -51,11 +52,10 @@ export class AddTaskComponent implements OnInit {
   }
 
   onAddTask() {
-    console.log(this.addTaskForm.value);
-
     this.taskService.addTask(this.addTaskForm.value).subscribe(
       (next) => {
-        console.log(next);
+        this.addTaskForm.reset();
+        this.tasksComponent.updateTasks();
       },
       (err) => {
         console.error(err);
@@ -64,8 +64,6 @@ export class AddTaskComponent implements OnInit {
   }
 
   closeDialog() {
-    this.addTaskForm.reset();
-    this.addDialog = false;
-    this.hideDialog.emit(false);
+    this.ref.close()
   }
 }

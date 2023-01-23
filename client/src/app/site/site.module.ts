@@ -98,7 +98,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog'
     useClass: TokenInterceptor
   },
     AuthGuard,
-    TaskService
+    TaskService,
   ],
   bootstrap: [SiteContainer],
 })

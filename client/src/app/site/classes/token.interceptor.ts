@@ -30,7 +30,7 @@ export class TokenInterceptor implements HttpInterceptor {
       tap(
         (evt) => {},
         (err: any) => {
-          if (err.status === 0){
+          if (err.status === 401){
             this.router.navigate(['/login'])
           }
           return of(err)

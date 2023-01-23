@@ -32,6 +32,10 @@ export class TaskService {
     return this.http.put<number>(this.apiUrl + 'tasks/' + newStatus + '/status','');
   }
 
+  deleteTask(id:number) {
+    return this.http.delete(this.apiUrl + 'tasks/' + id);
+  }
+
 }
 
 export enum Statuses{

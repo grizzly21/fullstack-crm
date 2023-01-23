@@ -1,44 +1,74 @@
 <h3 class="page-header">Завдання</h3>
 <p-divider></p-divider>
 <div class="card">
-  <p-toolbar [style]="{'padding': '1rem'}">
+  <p-toolbar [style]="{ padding: '1rem' }">
     <ng-template pTemplate="left">
-      <button pButton pRipple
-              label="Додати задачу"
-              icon="pi pi-plus"
-              class="p-button-success mr-2"
-              (click)="showDialog()"></button>
+      <button
+        pButton
+        pRipple
+        label="Додати задачу"
+        icon="pi pi-plus"
+        class="p-button-success mr-2"
+        (click)="showDialog()"
+      ></button>
     </ng-template>
     <ng-template pTemplate="right">
       <span class="p-input-icon-left">
-    <i class="pi pi-search"></i>
-    <input type="text" pInputText placeholder="Search" />
-</span>
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="Search" />
+      </span>
     </ng-template>
   </p-toolbar>
 
-  <p-table [style]="{'margin-top': '20px'}"
-    #dt [value]="tasks" [rowHover]="true">
+  <p-table
+    [style]="{ 'margin-top': '20px' }"
+    #dt
+    [value]="tasks"
+    [rowHover]="true"
+  >
     <ng-template pTemplate="header">
       <tr>
-        <th [style]="{'width': '3rem'}">#</th>
-        <th [style]="{'width': '15rem'}">Завдання</th>
+        <th [style]="{ width: '3rem' }">#</th>
+        <th>Завдання</th>
         <th>Опис</th>
-        <th [style]="{'width': '10rem'}">Статус</th>
-        <th [style]="{'width': '10rem'}">Time</th>
+        <th>Статус</th>
+        <th>Time</th>
+        <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-task>
-      <tr>
-        <td>{{task.id}}</td>
-        <td>{{task.title}}</td>
-        <td>{{task.description}}</td>
-        <td>{{task.status.title}}</td>
-        <td>{{task.targetDate | date:'dd.MM.YYYY'}}</td>
+      <tr
+        [ngStyle]="{
+          'background-color': !checkDate(task.targetDate)
+            ? 'white'
+            : 'mistyrose'
+        }"
+      >
+        <td [style]="{ 'padding-left': '1rem' }">{{ task.id }}</td>
+        <td>{{ task.title }}</td>
+        <td>{{ task.description }}</td>
+        <td>{{ task.status.title }}</td>
+        <td>{{ task.targetDate | date : "dd.MM.YYYY" }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success mr-2"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-warning"
+            (click)="deleteTask(task.id)"
+          ></button>
+        </td>
       </tr>
     </ng-template>
   </p-table>
 </div>
-<div class="pop-up">
-  <app-add-task [addDialog]="showAddDialog" (hideDialog)="hideDialog($event)"></app-add-task>
-</div>
+<p-confirmDialog
+  header="Delete"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
