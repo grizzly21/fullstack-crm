@@ -28,11 +28,11 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th [style]="{ width: '3rem' }">#</th>
+        <th pSortableColumn="id" [style]="{ width: '5rem' }">№<p-sortIcon field="id"></p-sortIcon></th>
         <th>Завдання</th>
         <th>Опис</th>
         <th>Статус</th>
-        <th>Time</th>
+        <th pSortableColumn="targetDate">Time<p-sortIcon field="targetDate"></p-sortIcon></th>
         <th></th>
       </tr>
     </ng-template>
@@ -55,6 +55,7 @@
             pRipple
             icon="pi pi-pencil"
             class="p-button-rounded p-button-success mr-2"
+            (click)="editDialog(task)"
           ></button>
           <button
             pButton

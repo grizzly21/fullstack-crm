@@ -1,6 +1,6 @@
 import { ITask } from './../../../classes/interfaces';
 import { Observable, tap, map } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class TaskService {
         item.forEach(obj => {
           obj.status = {
             title: Statuses[+obj.status],
-            status: obj.status
+            status: +obj.status
           }
         })
       })
@@ -28,8 +28,8 @@ export class TaskService {
     return this.http.post<ITask>(this.apiUrl + 'tasks', task);
   }
 
-  changeStatus(newStatus: number): Observable<number> {
-    return this.http.put<number>(this.apiUrl + 'tasks/' + newStatus + '/status','');
+  changeStatus(id: number, newStatus: number): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}tasks/${id}/status?status=${+newStatus}`, '');
   }
 
   deleteTask(id:number) {

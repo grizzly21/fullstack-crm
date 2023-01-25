@@ -61,4 +61,14 @@ export class TasksComponent implements OnInit {
       width: '600px'
     })
   }
+
+  editDialog(task: ITask) {
+    this.dialogService.open(AddTaskComponent, {
+      header: 'Edit Task',
+      width: '600px',
+      data: {
+        task: task
+      }
+    })
+  }
 }
