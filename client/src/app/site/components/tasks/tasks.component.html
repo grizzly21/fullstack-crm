@@ -15,7 +15,7 @@
     <ng-template pTemplate="right">
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
-        <input type="text" pInputText placeholder="Search" />
+        <input type="text" pInputText placeholder="Search" (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
       </span>
     </ng-template>
   </p-toolbar>
@@ -25,6 +25,7 @@
     #dt
     [value]="tasks"
     [rowHover]="true"
+    [paginator]="true" [rows]="9"
   >
     <ng-template pTemplate="header">
       <tr>

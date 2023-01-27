@@ -56,14 +56,14 @@ export class TasksComponent implements OnInit {
   }
 
   showDialog() {
-    this.dialogService.open(AddTaskComponent, {
+    const ref = this.dialogService.open(AddTaskComponent, {
       header: 'Add Task',
       width: '600px'
     })
   }
 
   editDialog(task: ITask) {
-    this.dialogService.open(AddTaskComponent, {
+    const ref = this.dialogService.open(AddTaskComponent, {
       header: 'Edit Task',
       width: '600px',
       data: {

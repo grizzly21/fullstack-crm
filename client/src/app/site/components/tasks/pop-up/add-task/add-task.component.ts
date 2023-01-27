@@ -11,7 +11,7 @@ import { formatDate } from '@angular/common';
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.scss'],
-  providers: [DynamicDialogRef, DialogService],
+  providers: [DialogService],
 })
 export class AddTaskComponent implements OnInit {
   @Input() addDialog!: boolean;
@@ -84,6 +84,7 @@ export class AddTaskComponent implements OnInit {
         (next) => {
           this.addTaskForm.reset();
           this.tasksComponent.updateTasks();
+          this.ref.close()
         },
         (err) => {
           console.error(err);
