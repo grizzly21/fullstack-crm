@@ -12,6 +12,8 @@ export class GoodsService {
   constructor(private http: HttpClient) {
   }
 
+  //GOODS
+
   uploadImage(image: FormData) {
     return this.http.post(`${this.apiUrl}attachments`, image)
   }
@@ -39,10 +41,23 @@ export class GoodsService {
       )
   }
 
+  public updateGoods(){
+    this.getAllGoods().subscribe(
+      next => {
+        console.log('updated Goods')
+      }
+    )
+  }
+
   addGoods(good: IGood): Observable<IGood> {
     return this.http.post<IGood>(this.apiUrl + 'products', good)
   }
 
+  deleteGoods(id: number): Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}products/${id}`)
+  }
+
+  //CATEGORIES
 
   getAllCategories(): Observable<ICategory[]>{
     return this.http.get<ICategory[]>(this.apiUrl + 'categories')
