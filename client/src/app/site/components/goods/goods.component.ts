@@ -4,8 +4,8 @@ import {GoodsService} from "../../classes/services/goods.service";
 
 @Component({
   selector: 'app-goods',
-  templateUrl: '/goods.component.html',
-  styleUrls: ['/goods.component.scss']
+  templateUrl: './goods.component.html',
+  styleUrls: ['./goods.component.scss']
 })
 export class GoodsComponent implements OnInit{
 
@@ -23,9 +23,7 @@ export class GoodsComponent implements OnInit{
     ]
 
     this.goodsService.getAllCategories().subscribe(
-      next => {
-        console.log('all categories have get', next)
-      },
+      next => {},
       error => {
         console.log(error)
       }

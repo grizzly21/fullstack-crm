@@ -1,1 +1,94 @@
-<p>add-postings works!</p>
+<div class="grid p-fluid">
+  <div class="col-12">
+    <form [formGroup]="addPostingForm" novalidate>
+      <div class="formgrid grid">
+        <div class="field col">
+          <label for="stocks">Stocks</label>
+          <p-dropdown
+            placeholder="Select.."
+            [options]="goodsService.stocks"
+            formControlName="stock"
+            optionValue="id"
+            optionLabel="title"
+          >
+          </p-dropdown>
+        </div>
+        <div class="field col">
+          <label for="currensies">Currency</label>
+          <p-dropdown
+            placeholder="Select.."
+            [options]="currensies"
+            formControlName="currency"
+            optionValue="code"
+            optionLabel="label"
+            #code
+          >
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="field" formArrayName="products">
+        <label for="prod">Products</label>
+        <ng-container
+          id="prod"
+          *ngFor="let product of products.controls; let i = index"
+        >
+          <div class="field flex gap-1">
+            <div class="flex gap-1" [formGroupName]="i">
+              <input pInputText type="text" formControlName="productId">
+              <input pInputText type="text" formControlName="count">
+              <input pInputText type="text" formControlName="pricePerItem">
+            </div>
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-times"
+              class="p-button-rounded p-button-text p-button-plain"
+              (click)="removeProductControl(i)"
+            ></button>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- <div class="field">
+        <label for="products">Products</label>
+        <input type="text" pInputText required formControlName="productId" />
+      </div>
+      <div class="formgrid grid">
+        <div class="field col">
+          <label for="price">Price</label>
+          <p-inputNumber
+            mode="currency"
+            currency="USD"
+            locale="en-US"
+            formControlName="pricePerItem"
+          ></p-inputNumber>
+        </div>
+        <div class="field col">
+          <label for="count">Count</label>
+          <input
+            type="text"
+            pInputText
+            required
+            (input)="getTotalPrice()"
+            formControlName="count"
+          />
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field col">
+          <span>Total: </span>
+        </div>
+        <div class="field col">
+          <span>{{
+            totalPrice | currency : getCurrency(code) : 'symbol'
+          }}</span>
+        </div>
+      </div> -->
+      <div class="field">
+        <button pButton label="Save"></button>
+      </div>
+    </form>
+  </div>
+</div>

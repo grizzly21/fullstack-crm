@@ -26,9 +26,7 @@ export class AllGoodsComponent implements OnInit {
 
   getAllGoods() {
     this.goodsService.getAllGoods().subscribe(
-      (next) => {
-        console.log(next);
-      },
+      (next) => {},
       (err) => {
         console.error(err);
       }
@@ -52,7 +50,6 @@ export class AllGoodsComponent implements OnInit {
       accept: () => {
         this.goodsService.deleteGoods(id).subscribe(
           next => {
-            console.log('next');
             this.goodsService.updateGoods()
           }
         )

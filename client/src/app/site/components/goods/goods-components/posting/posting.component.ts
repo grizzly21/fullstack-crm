@@ -46,7 +46,8 @@ export class PostingComponent {
 
   showDialog() {
     this.ref = this.dialogService.open(AddPostingsComponent, {
-      header: 'dialog',
+      header: 'Posting',
+      width: '700px',
       closable: true
     })
   }

@@ -41,14 +41,6 @@ export class GoodsService {
       )
   }
 
-  public updateGoods(){
-    this.getAllGoods().subscribe(
-      next => {
-        console.log('updated Goods')
-      }
-    )
-  }
-
   addGoods(good: IGood): Observable<IGood> {
     return this.http.post<IGood>(this.apiUrl + 'products', good)
   }
@@ -68,6 +60,42 @@ export class GoodsService {
       )
   }
 
+  addCategories(category: {name: string, parentId: number}): Observable<number>{
+    return this.http.post<number>(this.apiUrl + 'categories', category)
+  }
+
+  deleteCategory(id: number) {
+    return this.http.delete(this.apiUrl + 'categories/' + id)
+  }
+
+  // STOCKS AND POSTINGS
+
+  public stocks!: any
+
+  createStocks(title: string){
+    return this.http.post(`${this.apiUrl}/stocks`, {title: title})
+  }
+
+  getStocks() {
+    this.http.get(`${this.apiUrl}stocks`).subscribe(
+      next => {
+        this.stocks = next
+        console.log(this.stocks)
+      },
+      err => {
+        console.log(err)
+      }
+    )
+  }
+
+  deleteStocksById(id: number){
+    return this.http.delete(`${this.apiUrl}stocks/${id}`)
+  }
+
+
+
+  /* Common functions */
+
   private reMapArray(arr: any[]): any[]{
     return arr.map((item) => {
       return {
@@ -81,18 +109,18 @@ export class GoodsService {
     })
   }
 
-  addCategories(category: {name: string, parentId: number}): Observable<number>{
-    return this.http.post<number>(this.apiUrl + 'categories', category)
-  }
-
-  deleteCategory(id: number) {
-    return this.http.delete(this.apiUrl + 'categories/' + id)
-  }
-
   private toBase64(blob: Blob): Observable<string> {
     const reader = new FileReader()
     reader.readAsDataURL(blob)
     return fromEvent(reader, 'load')
       .pipe(map(() => reader.result as string))
+  }
+
+  public updateGoods(){
+    this.getAllGoods().subscribe(
+      next => {
+        console.log('updated Goods')
+      }
+    )
   }
 }
