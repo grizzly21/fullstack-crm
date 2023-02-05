@@ -27,67 +27,75 @@
         </div>
       </div>
 
-      <div class="field" formArrayName="products">
+      <div class="field product-list" formArrayName="products">
         <label for="prod">Products</label>
         <ng-container
           id="prod"
           *ngFor="let product of products.controls; let i = index"
         >
-          <div class="field flex gap-1">
-            <div class="flex gap-1" [formGroupName]="i">
-              <input pInputText type="text" formControlName="productId">
-              <input pInputText type="text" formControlName="count">
-              <input pInputText type="text" formControlName="pricePerItem">
+          <div class="formgrid grid product-list-inputs" [formGroupName]="i">
+            <div class="field col-12 md:col-7">
+              <p-dropdown
+                [options]="goodsService.allGoods"
+                formControlName="productId"
+                optionLabel="name"
+                [showClear]="true"
+                placeholder="Select product.."
+                [filter]="true"
+                filterBy="code,name"
+              >
+                <ng-template pTemplate="selectedItem">
+                  <div *ngIf="!!products.controls[i].get('productId')">
+                    <span>
+                      {{ products.controls[i].get("productId")?.value.code }}
+                      {{ products.controls[i].get("productId")?.value.name }}
+                    </span>
+                  </div>
+                </ng-template>
+                <ng-template let-product pTemplate="item">
+                  <div>
+                    <span>{{ product.code }} {{ product.name }}</span>
+                  </div>
+                </ng-template>
+              </p-dropdown>
             </div>
-            <button
-              pButton
-              pRipple
-              type="button"
-              icon="pi pi-times"
-              class="p-button-rounded p-button-text p-button-plain"
-              (click)="removeProductControl(i)"
-            ></button>
+            <div class="field col-12 md:col-2">
+              <p-inputNumber
+                formControlName="pricePerItem"
+                placeholder="Price"
+              ></p-inputNumber>
+            </div>
+            <div class="field col-12 md:col-2">
+              <p-inputNumber
+                formControlName="count"
+                mode="decimal"
+                [useGrouping]="false"
+                placeholder="Count"
+              ></p-inputNumber>
+            </div>
+            <div class="field col-12 md:col-1" *ngIf="i !== 0">
+              <button
+                pButton
+                type="button"
+                class="p-button-rounded p-button-danger p-button-text"
+                icon="pi pi-times"
+                (click)="removeProductControl(i)"
+              ></button>
+            </div>
+            <div class="field col-12 md:col-1" *ngIf="i === 0">
+              <button
+                pButton
+                type="button"
+                class="p-button-rounded p-button-success p-button-text"
+                icon="pi pi-plus"
+                (click)="addProducts()"
+              ></button>
+            </div>
           </div>
         </ng-container>
       </div>
-
-      <!-- <div class="field">
-        <label for="products">Products</label>
-        <input type="text" pInputText required formControlName="productId" />
-      </div>
-      <div class="formgrid grid">
-        <div class="field col">
-          <label for="price">Price</label>
-          <p-inputNumber
-            mode="currency"
-            currency="USD"
-            locale="en-US"
-            formControlName="pricePerItem"
-          ></p-inputNumber>
-        </div>
-        <div class="field col">
-          <label for="count">Count</label>
-          <input
-            type="text"
-            pInputText
-            required
-            (input)="getTotalPrice()"
-            formControlName="count"
-          />
-        </div>
-      </div>
-      <div class="formgrid grid">
-        <div class="field col">
-          <span>Total: </span>
-        </div>
-        <div class="field col">
-          <span>{{
-            totalPrice | currency : getCurrency(code) : 'symbol'
-          }}</span>
-        </div>
-      </div> -->
       <div class="field">
-        <button pButton label="Save"></button>
+        <button class="save_btn" pButton label="Save"></button>
       </div>
     </form>
   </div>

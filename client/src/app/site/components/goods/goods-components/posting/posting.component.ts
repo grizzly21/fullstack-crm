@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { AddPostingsComponent } from './../a-goods-common-components/add-postings/add-postings.component';
 import { Component } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -8,7 +9,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
   styleUrls: ['./posting.component.scss'],
   providers: [DialogService]
 })
-export class PostingComponent {
+export class PostingComponent{
   constructor(public dialogService: DialogService) {}
 
   ref!: DynamicDialogRef;
@@ -47,7 +48,8 @@ export class PostingComponent {
   showDialog() {
     this.ref = this.dialogService.open(AddPostingsComponent, {
       header: 'Posting',
-      width: '700px',
+      width: '800px',
+      height: '800px',
       closable: true
     })
   }
