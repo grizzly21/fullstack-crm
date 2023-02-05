@@ -1,6 +1,5 @@
 import {
   FormGroup,
-  FormControl,
   Validators,
   FormArray,
   FormBuilder,
@@ -36,6 +35,9 @@ export class AddPostingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.goodsService.allGoods.length === 0){
+      this.goodsService.getAllGoods().subscribe()
+    }
     this.goodsService.getStocks();
 
     this.currensies = [
@@ -47,21 +49,21 @@ export class AddPostingsComponent implements OnInit {
       stock: ['', Validators.required],
       currency: [null, Validators.required],
       products: this.fb.array([
-        {
+        this.fb.group({
+          productId: ['', Validators.required],
+          pricePerItem: [null, Validators.required],
+          count: [null, Validators.required],
+        }),
+        this.fb.group({
           productId: [null, Validators.required],
-          count: [0, Validators.required],
-          pricePerItem: [0, Validators.required],
-        },
-        {
+          pricePerItem: [null, Validators.required],
+          count: [null, Validators.required],
+        }),
+        this.fb.group({
           productId: [null, Validators.required],
-          count: [0, Validators.required],
-          pricePerItem: [0, Validators.required],
-        },
-        {
-          productId: [null, Validators.required],
-          count: [0, Validators.required],
-          pricePerItem: [0, Validators.required],
-        },
+          pricePerItem: [null, Validators.required],
+          count: [null, Validators.required],
+        })
       ]),
     });
   }
@@ -72,9 +74,9 @@ export class AddPostingsComponent implements OnInit {
 
   newProduct(): FormGroup {
     return this.fb.group({
-      productId: [null, Validators.required],
-      count: [0, Validators.required],
-      pricePerItem: [0, Validators.required],
+      productId: ['', Validators.required],
+      count: [null, Validators.required],
+      pricePerItem: [null, Validators.required],
     });
   }
 
@@ -83,6 +85,9 @@ export class AddPostingsComponent implements OnInit {
   }
 
   removeProductControl(index: number) {
+    if(index === 0){
+      alert('you cant delete last item')
+    }
     (<FormArray>this.addPostingForm.get('products')).removeAt(index);
   }
 
