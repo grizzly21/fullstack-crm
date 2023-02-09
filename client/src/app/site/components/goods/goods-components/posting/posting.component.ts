@@ -1,3 +1,4 @@
+import { GoodsService } from './../../../../classes/services/goods.service';
 import { OnInit } from '@angular/core';
 import { AddPostingsComponent } from './../a-goods-common-components/add-postings/add-postings.component';
 import { Component } from '@angular/core';
@@ -7,39 +8,30 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
   selector: 'app-posting',
   templateUrl: './posting.component.html',
   styleUrls: ['./posting.component.scss'],
-  providers: [DialogService]
+  providers: [DialogService],
 })
-export class PostingComponent{
-  constructor(public dialogService: DialogService) {}
+export class PostingComponent implements OnInit{
+  constructor(
+    public dialogService: DialogService,
+    private goodsService: GoodsService
+  ) {}
 
   ref!: DynamicDialogRef;
 
-  public posting = [
-    {
-      id: 1,
-      time: '21.04.2023',
-      storage: 'main',
-      company: 'Ogrizok',
-      total: 1200,
-      currency: 'EUR',
-    },
-    {
-      id: 2,
-      time: '24.04.2023',
-      storage: 'main',
-      company: 'Ogrizok',
-      total: 1400,
-      currency: 'EUR',
-    },
-    {
-      id: 3,
-      time: '01.06.2023',
-      storage: 'main',
-      company: 'Ogrizok',
-      total: 900,
-      currency: 'EUR',
-    },
-  ];
+  public postings: any = [];
+
+  ngOnInit(){
+    this.getAllPostings()
+  }
+
+  getAllPostings() {
+    this.goodsService.getAllPostings().subscribe(
+      res => {
+        this.postings = res
+        console.log(res)
+      }
+    )
+  }
 
   getEventValue($event: any): string {
     return $event.target?.value;
@@ -50,7 +42,7 @@ export class PostingComponent{
       header: 'Posting',
       width: '800px',
       height: '800px',
-      closable: true
-    })
+      closable: true,
+    });
   }
 }

@@ -47,25 +47,33 @@ export class AddPostingsComponent implements OnInit {
 
     this.addPostingForm = this.fb.group({
       stock: ['', Validators.required],
-      currency: [null, Validators.required],
+      currency: [0, Validators.required],
       products: this.fb.array([
         this.fb.group({
           productId: ['', Validators.required],
           pricePerItem: [null, Validators.required],
           count: [null, Validators.required],
-        }),
-        this.fb.group({
-          productId: [null, Validators.required],
-          pricePerItem: [null, Validators.required],
-          count: [null, Validators.required],
-        }),
-        this.fb.group({
-          productId: [null, Validators.required],
-          pricePerItem: [null, Validators.required],
-          count: [null, Validators.required],
         })
       ]),
     });
+  }
+
+  onAddPosting(){
+    let data = this.addPostingForm.value
+    data.products.forEach((product: {
+      currency: any; productId: { id: any; };
+    }) => {
+      let id = product.productId.id
+      product.productId = id
+      product.currency = data.currency
+    });
+    delete data.currency
+
+    console.log(data)
+
+    this.goodsService.createPosting(data).subscribe(
+      next => console.log(next)
+    )
   }
 
   get products(): FormArray {
@@ -89,15 +97,5 @@ export class AddPostingsComponent implements OnInit {
       alert('you cant delete last item')
     }
     (<FormArray>this.addPostingForm.get('products')).removeAt(index);
-  }
-
-  getTotalPrice() {
-    let form = this.addPostingForm;
-    return (this.totalPrice =
-      +form.get('pricePerItem')?.value * +form.get('count')?.value);
-  }
-
-  getCurrency(code: any) {
-    return code.selectedOption.label;
   }
 }

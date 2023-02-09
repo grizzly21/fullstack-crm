@@ -1,6 +1,11 @@
 <div class="grid p-fluid">
   <div class="col-12">
-    <form [formGroup]="addPostingForm" novalidate>
+    <form
+      [formGroup]="addPostingForm"
+      (ngSubmit)="onAddPosting()"
+      novalidate
+      id="postingForm"
+      >
       <div class="formgrid grid">
         <div class="field col">
           <label for="stocks">Stocks</label>
@@ -39,7 +44,7 @@
                 [options]="goodsService.allGoods"
                 formControlName="productId"
                 optionLabel="name"
-                [showClear]="true"
+                [showClear]="false"
                 placeholder="Select product.."
                 [filter]="true"
                 filterBy="code,name"
@@ -95,7 +100,13 @@
         </ng-container>
       </div>
       <div class="field">
-        <button class="save_btn" pButton label="Save"></button>
+        <button class="save_btn"
+          pButton
+          label="Save"
+          form="postingForm"
+          type="submit"
+          [disabled]="addPostingForm.invalid"
+        ></button>
       </div>
     </form>
   </div>

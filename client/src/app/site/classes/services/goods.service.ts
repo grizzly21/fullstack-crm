@@ -92,7 +92,13 @@ export class GoodsService {
     return this.http.delete(`${this.apiUrl}stocks/${id}`)
   }
 
+  createPosting(data: any) {
+    return this.http.post(`${this.apiUrl}stocks/${data.stock}/postings`, data.products)
+  }
 
+  getAllPostings() {
+    return this.http.get(`${this.apiUrl}stocks/postings`)
+  }
 
   /* Common functions */
 

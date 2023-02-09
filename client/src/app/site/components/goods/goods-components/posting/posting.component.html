@@ -19,7 +19,7 @@
   </p-toolbar>
 
   <!-- Table for all goods by primeNG -->
-  <p-table #dt [value]="posting" [rowHover]="true" [globalFilterFields]="['time', 'id']">
+  <p-table #dt [value]="postings" [rowHover]="true">
     <ng-template pTemplate="header">
       <tr>
         <th [style]="{ width: '2rem' }">№</th>
@@ -32,12 +32,12 @@
     </ng-template>
     <ng-template pTemplate="body" let-post>
       <tr>
-        <td>{{ [post.id] }}</td>
-        <td>{{ [post.time] }}</td>
-        <td>{{ [post.storage] }}</td>
-        <td>{{ [post.company] }}</td>
-        <td>{{ [post.total] }}</td>
-        <td>{{ [post.currency] }}</td>
+        <td>{{ post.id }}</td>
+        <td>{{ post.date | date : "dd.MM.YYYY"}}</td>
+        <td>{{ post.stock.title }}</td>
+        <td>{{ post.addedBy.displayName }}</td>
+        <td>{{ post.totals[0].value }}</td>
+        <td>{{ post.totals[0].currency }}</td>
       </tr>
     </ng-template>
   </p-table>
