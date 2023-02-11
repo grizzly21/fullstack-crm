@@ -45,7 +45,9 @@ import {AuthGuard} from "../auth/common/auth.guard";
 import {TreeModule} from "primeng/tree";
 import { AddCategoryComponent } from './components/general/user-profile/edit-category/add-category/add-category/add-category.component';
 import {TreeSelectModule} from 'primeng/treeselect';
-import {ConfirmDialogModule} from 'primeng/confirmdialog'
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import { PostingDetailsComponent } from './components/goods/goods-components/a-goods-common-components/posting-details/posting-details.component';
+import { EditStocksComponent } from './components/general/user-profile/edit-stocks/edit-stocks.component'
 
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog'
     UserProfileComponent,
     EditCategoryComponent,
     AddCategoryComponent,
+    PostingDetailsComponent,
+    EditStocksComponent,
   ],
   imports: [
     CommonModule,

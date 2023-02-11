@@ -73,14 +73,13 @@ export class GoodsService {
   public stocks!: any
 
   createStocks(title: string){
-    return this.http.post(`${this.apiUrl}/stocks`, {title: title})
+    return this.http.post(`${this.apiUrl}stocks`, {title: title})
   }
 
   getStocks() {
     this.http.get(`${this.apiUrl}stocks`).subscribe(
       next => {
         this.stocks = next
-        console.log(this.stocks)
       },
       err => {
         console.log(err)
@@ -98,6 +97,10 @@ export class GoodsService {
 
   getAllPostings() {
     return this.http.get(`${this.apiUrl}stocks/postings`)
+  }
+
+  getPostingById(id: number) {
+    return this.http.get(`${this.apiUrl}stocks/postings/${id}/products`)
   }
 
   /* Common functions */

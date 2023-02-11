@@ -12,6 +12,7 @@ export class UserProfileComponent implements OnInit{
     this.userProfileNavItems = [
       {label: 'Основні данні'/*, routerLink: 'main'*/},
       {label: 'Категорії товарів', routerLink: 'edit-category'},
+      {label: 'Склади', routerLink: 'edit-stocks'},
       {label: 'Налаштування'/*, routerLink: 'settings'*/}
     ]
   }

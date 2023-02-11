@@ -1,3 +1,4 @@
+import { PostingComponent } from './../../posting/posting.component';
 import {
   FormGroup,
   Validators,
@@ -18,15 +19,15 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 export class AddPostingsComponent implements OnInit {
   currensies: any[] = [];
   totalPrice: number = 0.0;
-
   addPostingForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private primengConfig: PrimeNGConfig,
     public ref: DynamicDialogRef,
-    public config: DynamicDialogConfig,
-    public goodsService: GoodsService
+    private config: DynamicDialogConfig,
+    public goodsService: GoodsService,
+    private postingComp: PostingComponent
   ) {
     this.primengConfig.overlayOptions = {
       mode: 'overlay',
@@ -35,6 +36,7 @@ export class AddPostingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     if(this.goodsService.allGoods.length === 0){
       this.goodsService.getAllGoods().subscribe()
     }
@@ -69,10 +71,11 @@ export class AddPostingsComponent implements OnInit {
     });
     delete data.currency
 
-    console.log(data)
-
     this.goodsService.createPosting(data).subscribe(
-      next => console.log(next)
+      next => {
+        this.ref.close()
+        this.postingComp.getAllPostings()
+      }
     )
   }
 

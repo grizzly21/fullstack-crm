@@ -13,7 +13,7 @@
     <ng-template pTemplate="right">
       <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
-        <input type="text" pInputText placeholder="Search" (input)="dt.filterGlobal(getEventValue($event), 'contains')"/>
+        <input type="text" pInputText placeholder="Пошук" (input)="dt.filterGlobal(getEventValue($event), 'contains')"/>
       </span>
     </ng-template>
   </p-toolbar>
@@ -31,9 +31,9 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-post>
-      <tr>
+      <tr (click)="showDialogById(post)">
         <td>{{ post.id }}</td>
-        <td>{{ post.date | date : "dd.MM.YYYY"}}</td>
+        <td>{{ post.date | date : "dd.MM.YYYY hh:mm"}}</td>
         <td>{{ post.stock.title }}</td>
         <td>{{ post.addedBy.displayName }}</td>
         <td>{{ post.totals[0].value }}</td>

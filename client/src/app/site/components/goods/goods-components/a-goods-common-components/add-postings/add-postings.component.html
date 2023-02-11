@@ -8,9 +8,9 @@
       >
       <div class="formgrid grid">
         <div class="field col">
-          <label for="stocks">Stocks</label>
+          <label for="stocks">Склад</label>
           <p-dropdown
-            placeholder="Select.."
+            placeholder="Оберіть.."
             [options]="goodsService.stocks"
             formControlName="stock"
             optionValue="id"
@@ -19,9 +19,9 @@
           </p-dropdown>
         </div>
         <div class="field col">
-          <label for="currensies">Currency</label>
+          <label for="currensies">Валюта</label>
           <p-dropdown
-            placeholder="Select.."
+            placeholder="Оберіть.."
             [options]="currensies"
             formControlName="currency"
             optionValue="code"
@@ -33,7 +33,7 @@
       </div>
 
       <div class="field product-list" formArrayName="products">
-        <label for="prod">Products</label>
+        <label for="prod">Товари</label>
         <ng-container
           id="prod"
           *ngFor="let product of products.controls; let i = index"
@@ -45,7 +45,7 @@
                 formControlName="productId"
                 optionLabel="name"
                 [showClear]="false"
-                placeholder="Select product.."
+                placeholder="Оберіть товар.."
                 [filter]="true"
                 filterBy="code,name"
               >
@@ -67,7 +67,7 @@
             <div class="field col-12 md:col-2">
               <p-inputNumber
                 formControlName="pricePerItem"
-                placeholder="Price"
+                placeholder="Ціна"
               ></p-inputNumber>
             </div>
             <div class="field col-12 md:col-2">
@@ -75,7 +75,7 @@
                 formControlName="count"
                 mode="decimal"
                 [useGrouping]="false"
-                placeholder="Count"
+                placeholder="Кількість"
               ></p-inputNumber>
             </div>
             <div class="field col-12 md:col-1" *ngIf="i !== 0">
@@ -102,7 +102,7 @@
       <div class="field">
         <button class="save_btn"
           pButton
-          label="Save"
+          label="Зберегти"
           form="postingForm"
           type="submit"
           [disabled]="addPostingForm.invalid"

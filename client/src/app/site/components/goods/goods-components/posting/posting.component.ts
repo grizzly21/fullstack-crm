@@ -1,3 +1,5 @@
+import { PostingDetailsComponent } from './../a-goods-common-components/posting-details/posting-details.component';
+import { formatDate } from '@angular/common';
 import { GoodsService } from './../../../../classes/services/goods.service';
 import { OnInit } from '@angular/core';
 import { AddPostingsComponent } from './../a-goods-common-components/add-postings/add-postings.component';
@@ -28,7 +30,6 @@ export class PostingComponent implements OnInit{
     this.goodsService.getAllPostings().subscribe(
       res => {
         this.postings = res
-        console.log(res)
       }
     )
   }
@@ -39,10 +40,20 @@ export class PostingComponent implements OnInit{
 
   showDialog() {
     this.ref = this.dialogService.open(AddPostingsComponent, {
-      header: 'Posting',
+      header: 'Оприбуткування',
       width: '800px',
       height: '800px',
       closable: true,
     });
+  }
+
+  showDialogById(data: any){
+    this.ref = this.dialogService.open(PostingDetailsComponent, {
+      header: `Оприбуткування №${data.id} від ${formatDate(data.date, 'dd.MM.YYYY hh:mm', 'en-US')}`,
+      width: '1000px',
+      height: '800px',
+      closable: true,
+      data: data
+    })
   }
 }

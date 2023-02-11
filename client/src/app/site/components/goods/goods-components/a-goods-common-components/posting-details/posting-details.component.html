@@ -1,0 +1,26 @@
+<div class="card">
+  <p-table [value]="postingsDetails" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>PricePerItem</th>
+        <th>Count</th>
+        <th>Currency</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-post>
+      <tr>
+        <td>{{post.product.name}}</td>
+        <td>{{post.product.code}}</td>
+        <td>{{post.product.category.name}}</td>
+        <td>{{post.product.price}}</td>
+        <td>{{post.pricePerItem}}</td>
+        <td>{{post.count}}</td>
+        <td>{{post.currency}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

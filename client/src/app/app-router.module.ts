@@ -1,3 +1,4 @@
+import { EditStocksComponent } from './site/components/general/user-profile/edit-stocks/edit-stocks.component';
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
 import {LoginComponent} from "./auth/login/login.component";
@@ -40,7 +41,8 @@ const routes: Routes = [
       {path: 'tasks', component: TasksComponent},
       {
         path: 'user-profile', component: UserProfileComponent, children: [
-          {path: 'edit-category', component: EditCategoryComponent}
+          {path: 'edit-category', component: EditCategoryComponent},
+          {path: 'edit-stocks', component: EditStocksComponent},
         ]
       }
     ]
