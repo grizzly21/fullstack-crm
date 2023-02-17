@@ -1,3 +1,9 @@
+import { CounterpartiesComponent } from './site/components/counterparties/counterparties.component';
+import { DepositsComponent } from './site/components/sales/deposits/deposits.component';
+import { ReturnsComponent } from './site/components/sales/returns/returns.component';
+import { PointsOfSaleComponent } from './site/components/sales/points-of-sale/points-of-sale.component';
+import { AllSalesComponent } from './site/components/sales/all-sales/all-sales.component';
+import { SalesComponent } from './site/components/sales/sales.component';
 import { EditStocksComponent } from './site/components/general/user-profile/edit-stocks/edit-stocks.component';
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
@@ -44,6 +50,18 @@ const routes: Routes = [
           {path: 'edit-category', component: EditCategoryComponent},
           {path: 'edit-stocks', component: EditStocksComponent},
         ]
+      },
+      {
+        path: 'sales', component: SalesComponent, children: [
+          {path: '', redirectTo: 'points-of-sales', pathMatch: "full"},
+          {path: 'all-sales', component: AllSalesComponent},
+          {path: 'points-of-sales', component: PointsOfSaleComponent},
+          {path: 'returns', component: ReturnsComponent},
+          {path: 'deposits', component: DepositsComponent}
+        ]
+      },
+      {
+        path: 'counterparties', component: CounterpartiesComponent
       }
     ]
   }
