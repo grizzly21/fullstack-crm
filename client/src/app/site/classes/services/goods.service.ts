@@ -1,3 +1,4 @@
+import { apiURL } from './../../../konfig/urls';
 import {fromEvent, map, mergeMap, Observable, tap} from 'rxjs';
 import {ICategory, IGood} from '../interfaces';
 import {HttpClient} from '@angular/common/http';
@@ -7,7 +8,6 @@ import {Injectable} from '@angular/core';
 export class GoodsService {
   public allGoods: IGood[] = []
   public categories: ICategory[] | any []= []
-  private readonly apiUrl = 'http://localhost:8080/'
 
   constructor(private http: HttpClient) {
   }
@@ -15,11 +15,11 @@ export class GoodsService {
   //GOODS
 
   uploadImage(image: FormData) {
-    return this.http.post(`${this.apiUrl}attachments`, image)
+    return this.http.post(`${apiURL}attachments`, image)
   }
 
   getImageById(id: string) {
-    return this.http.get(this.apiUrl + "attachments/" + id, {responseType: "blob"})
+    return this.http.get(apiURL + "attachments/" + id, {responseType: "blob"})
       .pipe(
         mergeMap(res => this.toBase64(res))
       ).subscribe(
@@ -33,7 +33,7 @@ export class GoodsService {
   }
 
   getAllGoods(): Observable<IGood[]> {
-    return this.http.get<IGood[]>(this.apiUrl + 'products')
+    return this.http.get<IGood[]>(apiURL + 'products')
       .pipe(
         tap((goods) => {
           this.allGoods = goods
@@ -42,17 +42,17 @@ export class GoodsService {
   }
 
   addGoods(good: IGood): Observable<IGood> {
-    return this.http.post<IGood>(this.apiUrl + 'products', good)
+    return this.http.post<IGood>(apiURL + 'products', good)
   }
 
   deleteGoods(id: number): Observable<any>{
-    return this.http.delete<any>(`${this.apiUrl}products/${id}`)
+    return this.http.delete<any>(`${apiURL}products/${id}`)
   }
 
   //CATEGORIES
 
   getAllCategories(): Observable<ICategory[]>{
-    return this.http.get<ICategory[]>(this.apiUrl + 'categories')
+    return this.http.get<ICategory[]>(apiURL + 'categories')
       .pipe(
         tap((categories) => {
           this.categories = this.reMapArray(categories)
@@ -61,11 +61,11 @@ export class GoodsService {
   }
 
   addCategories(category: {name: string, parentId: number}): Observable<number>{
-    return this.http.post<number>(this.apiUrl + 'categories', category)
+    return this.http.post<number>(apiURL + 'categories', category)
   }
 
   deleteCategory(id: number) {
-    return this.http.delete(this.apiUrl + 'categories/' + id)
+    return this.http.delete(apiURL + 'categories/' + id)
   }
 
   // STOCKS AND POSTINGS
@@ -73,11 +73,11 @@ export class GoodsService {
   public stocks!: any
 
   createStocks(title: string){
-    return this.http.post(`${this.apiUrl}stocks`, {title: title})
+    return this.http.post(`${apiURL}stocks`, {title: title})
   }
 
   getStocks() {
-    this.http.get(`${this.apiUrl}stocks`).subscribe(
+    this.http.get(`${apiURL}stocks`).subscribe(
       next => {
         this.stocks = next
       },
@@ -88,19 +88,25 @@ export class GoodsService {
   }
 
   deleteStocksById(id: number){
-    return this.http.delete(`${this.apiUrl}stocks/${id}`)
+    return this.http.delete(`${apiURL}stocks/${id}`)
   }
 
   createPosting(data: any) {
-    return this.http.post(`${this.apiUrl}stocks/${data.stock}/postings`, data.products)
+    return this.http.post(`${apiURL}stocks/${data.stock}/postings`, data.products)
   }
 
   getAllPostings() {
-    return this.http.get(`${this.apiUrl}stocks/postings`)
+    return this.http.get(`${apiURL}stocks/postings`)
   }
 
   getPostingById(id: number) {
-    return this.http.get(`${this.apiUrl}stocks/postings/${id}/products`)
+    return this.http.get(`${apiURL}stocks/postings/${id}/products`)
+  }
+
+  // LEAVINGS
+
+  getAllLeavings(){
+    return this.http.get(`${apiURL}leavings`)
   }
 
   /* Common functions */
