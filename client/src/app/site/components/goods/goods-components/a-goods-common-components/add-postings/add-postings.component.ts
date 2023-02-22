@@ -1,3 +1,4 @@
+import { AgentsService } from './../../../../../classes/services/agents.service';
 import { PostingComponent } from './../../posting/posting.component';
 import {
   FormGroup,
@@ -25,9 +26,9 @@ export class AddPostingsComponent implements OnInit {
     private fb: FormBuilder,
     private primengConfig: PrimeNGConfig,
     public ref: DynamicDialogRef,
-    private config: DynamicDialogConfig,
     public goodsService: GoodsService,
-    private postingComp: PostingComponent
+    private postingComp: PostingComponent,
+    public agentService: AgentsService
   ) {
     this.primengConfig.overlayOptions = {
       mode: 'overlay',
@@ -41,6 +42,7 @@ export class AddPostingsComponent implements OnInit {
       this.goodsService.getAllGoods().subscribe()
     }
     this.goodsService.getStocks();
+    this.agentService.getAllAgents()
 
     this.currensies = [
       { label: 'USD', code: 0 },
@@ -50,6 +52,7 @@ export class AddPostingsComponent implements OnInit {
     this.addPostingForm = this.fb.group({
       stock: ['', Validators.required],
       currency: [0, Validators.required],
+      agentId: ['', Validators.required],
       products: this.fb.array([
         this.fb.group({
           productId: ['', Validators.required],
@@ -69,9 +72,11 @@ export class AddPostingsComponent implements OnInit {
       product.productId = id
       product.currency = data.currency
     });
+    let stock = data.stock
     delete data.currency
+    delete data.stock
 
-    this.goodsService.createPosting(data).subscribe(
+    this.goodsService.createPosting(stock, data).subscribe(
       next => {
         this.ref.close()
         this.postingComp.getAllPostings()

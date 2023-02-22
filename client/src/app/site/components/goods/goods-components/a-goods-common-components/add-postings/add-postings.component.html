@@ -31,7 +31,17 @@
           </p-dropdown>
         </div>
       </div>
-
+      <div class="field">
+        <label for="agent">Контрагент</label>
+        <p-dropdown
+          placeholder="Choose.."
+          [options]="agentService.agents"
+          formControlName="agentId"
+          optionLabel="fullName"
+          optionValue="id"
+        >
+        </p-dropdown>
+      </div>
       <div class="field product-list" formArrayName="products">
         <label for="prod">Товари</label>
         <ng-container

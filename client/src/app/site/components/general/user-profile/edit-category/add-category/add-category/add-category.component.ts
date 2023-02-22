@@ -28,8 +28,12 @@ export class AddCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.addCategoryForm = new FormGroup({
       name: new FormControl(null, Validators.required),
-      parentId: new FormControl(null, Validators.required),
+      parentId: new FormControl(''),
     });
+
+    if(this.goodsService.categories.length === 0){
+      this.addCategoryForm.get('parentId')?.disable()
+    }
   }
 
   onAddCategory() {
@@ -38,6 +42,10 @@ export class AddCategoryComponent implements OnInit {
     let data = {
       name: this.addCategoryForm.get('name')?.value,
       parentId: this.addCategoryForm.get('parentId')?.value.data
+    }
+
+    if(this.goodsService.categories.length === 0){
+      delete data.parentId
     }
 
     this.goodsService.addCategories(data).subscribe(

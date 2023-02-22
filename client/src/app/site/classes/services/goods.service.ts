@@ -7,7 +7,7 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class GoodsService {
   public allGoods: IGood[] = []
-  public categories: ICategory[] | any []= []
+  public categories!: ICategory[] | any []
 
   constructor(private http: HttpClient) {
   }
@@ -60,7 +60,7 @@ export class GoodsService {
       )
   }
 
-  addCategories(category: {name: string, parentId: number}): Observable<number>{
+  addCategories(category: {name: string, parentId?: number}): Observable<number>{
     return this.http.post<number>(apiURL + 'categories', category)
   }
 
@@ -91,8 +91,8 @@ export class GoodsService {
     return this.http.delete(`${apiURL}stocks/${id}`)
   }
 
-  createPosting(data: any) {
-    return this.http.post(`${apiURL}stocks/${data.stock}/postings`, data.products)
+  createPosting(stock: number, data: any) {
+    return this.http.post(`${apiURL}stocks/${stock}/postings`, data)
   }
 
   getAllPostings() {
