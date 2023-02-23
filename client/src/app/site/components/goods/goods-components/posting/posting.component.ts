@@ -15,7 +15,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 export class PostingComponent implements OnInit{
   constructor(
     public dialogService: DialogService,
-    private goodsService: GoodsService
+    private goodsService: GoodsService,
   ) {}
 
   ref!: DynamicDialogRef;
@@ -27,11 +27,11 @@ export class PostingComponent implements OnInit{
   }
 
   getAllPostings() {
-    this.goodsService.getAllPostings().subscribe(
-      res => {
+    this.goodsService.getAllPostings().subscribe({
+      next: (res: any)=> {
         this.postings = res
       }
-    )
+    })
   }
 
   getEventValue($event: any): string {

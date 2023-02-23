@@ -1,0 +1,27 @@
+<div class="grid p-fluid">
+  <div class="col-12">
+    <form>
+      <div class="formgrid grid">
+        <div class="field col">
+          <label for="agent">Контрагент</label>
+          <p-dropdown
+            placeholder="Choose.."
+            [options]="agentService.agents"
+            optionLabel="fullName"
+            optionValue="id"
+            appendTo="body"
+          >
+          </p-dropdown>
+        </div>
+        <div class="field col">
+          <label for="shift">Зміна</label>
+          <input type="text" pInputText>
+        </div>
+      </div>
+      <div class="field">
+        <label for="prod">Товари</label>
+        <ng-container id="prod"></ng-container>
+      </div>
+    </form>
+  </div>
+</div>

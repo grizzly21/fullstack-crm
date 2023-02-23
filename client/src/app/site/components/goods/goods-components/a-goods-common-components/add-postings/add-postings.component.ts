@@ -1,16 +1,11 @@
 import { AgentsService } from './../../../../../classes/services/agents.service';
 import { PostingComponent } from './../../posting/posting.component';
-import {
-  FormGroup,
-  Validators,
-  FormArray,
-  FormBuilder,
-} from '@angular/forms';
+import { FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { GoodsService } from './../../../../../classes/services/goods.service';
 import { OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { Component } from '@angular/core';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-add-postings',
@@ -37,12 +32,11 @@ export class AddPostingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    if(this.goodsService.allGoods.length === 0){
-      this.goodsService.getAllGoods().subscribe()
+    if (this.goodsService.allGoods.length === 0) {
+      this.goodsService.getAllGoods().subscribe();
     }
     this.goodsService.getStocks();
-    this.agentService.getAllAgents()
+    this.agentService.getAllAgents();
 
     this.currensies = [
       { label: 'USD', code: 0 },
@@ -51,37 +45,35 @@ export class AddPostingsComponent implements OnInit {
 
     this.addPostingForm = this.fb.group({
       stock: ['', Validators.required],
-      currency: [0, Validators.required],
+      currency: [1, Validators.required],
       agentId: ['', Validators.required],
       products: this.fb.array([
         this.fb.group({
           productId: ['', Validators.required],
           pricePerItem: [null, Validators.required],
           count: [null, Validators.required],
-        })
+        }),
       ]),
     });
   }
 
-  onAddPosting(){
-    let data = this.addPostingForm.value
-    data.products.forEach((product: {
-      currency: any; productId: { id: any; };
-    }) => {
-      let id = product.productId.id
-      product.productId = id
-      product.currency = data.currency
-    });
-    let stock = data.stock
-    delete data.currency
-    delete data.stock
-
-    this.goodsService.createPosting(stock, data).subscribe(
-      next => {
-        this.ref.close()
-        this.postingComp.getAllPostings()
+  onAddPosting() {
+    let data = this.addPostingForm.value;
+    data.products.forEach(
+      (product: { currency: any; productId: { id: any } }) => {
+        let id = product.productId.id;
+        product.productId = id;
+        product.currency = data.currency;
       }
-    )
+    );
+    let stock = data.stock;
+    delete data.currency;
+    delete data.stock;
+
+    this.goodsService.createPosting(stock, data).subscribe((next) => {
+      this.ref.close();
+      this.postingComp.getAllPostings();
+    });
   }
 
   get products(): FormArray {
@@ -96,13 +88,13 @@ export class AddPostingsComponent implements OnInit {
     });
   }
 
-  addProducts(){
-    this.products.push(this.newProduct())
+  addProducts() {
+    this.products.push(this.newProduct());
   }
 
   removeProductControl(index: number) {
-    if(index === 0){
-      alert('you cant delete last item')
+    if (index === 0) {
+      alert('you cant delete last item');
     }
     (<FormArray>this.addPostingForm.get('products')).removeAt(index);
   }

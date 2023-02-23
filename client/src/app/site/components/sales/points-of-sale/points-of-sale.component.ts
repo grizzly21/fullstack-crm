@@ -39,6 +39,7 @@ export class PointsOfSaleComponent implements OnInit {
   openDialog(){
     this.dialogService.open(AddPointOfSalesComponent, {
       header: 'Додати точку продажу',
+      width: '500px',
       modal: true
     })
   }

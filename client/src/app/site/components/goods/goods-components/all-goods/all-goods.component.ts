@@ -1,8 +1,9 @@
 import { ConfirmationService } from 'primeng/api';
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {AddGoodsComponent} from "../a-goods-common-components/add-goods/add-goods.component";
 import {GoodsService} from "../../../../classes/services/goods.service";
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-all-goods',
@@ -22,6 +23,7 @@ export class AllGoodsComponent implements OnInit {
 
   ngOnInit() {
     this.getAllGoods()
+
   }
 
   getAllGoods() {

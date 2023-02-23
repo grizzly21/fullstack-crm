@@ -1,3 +1,4 @@
+import { CustomCurrencyPipe } from './classes/pipes/custom-currency.pipe';
 import { TaskService } from './components/tasks/tasks-service/task.service';
 import { TokenInterceptor } from './classes/token.interceptor';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -54,6 +55,7 @@ import { CounterpartiesComponent } from './components/counterparties/counterpart
 import { AddCounterpartyComponent } from './components/counterparties/dialogs/add-counterparty/add-counterparty.component';
 import { AddPointOfSalesComponent } from './components/sales/dialogs/add-point-of-sales/add-point-of-sales.component';
 import { AgentsService } from './classes/services/agents.service';
+import { AddSalesComponent } from './components/sales/dialogs/add-sales/add-sales.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +85,8 @@ import { AgentsService } from './classes/services/agents.service';
     CounterpartiesComponent,
     AddCounterpartyComponent,
     AddPointOfSalesComponent,
+    AddSalesComponent,
+    CustomCurrencyPipe
   ],
   imports: [
     CommonModule,
