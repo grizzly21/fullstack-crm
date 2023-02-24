@@ -1,3 +1,4 @@
+import { ILeavings } from './../interfaces';
 import { apiURL } from './../../../konfig/urls';
 import {fromEvent, map, mergeMap, Observable, tap} from 'rxjs';
 import {ICategory, IGood} from '../interfaces';
@@ -8,6 +9,7 @@ import {Injectable} from '@angular/core';
 export class GoodsService {
   public allGoods: IGood[] = []
   public categories!: ICategory[] | any []
+  public leavings!: ILeavings[]
 
   constructor(private http: HttpClient) {
   }
@@ -105,8 +107,20 @@ export class GoodsService {
 
   // LEAVINGS
 
-  getAllLeavings(){
-    return this.http.get(`${apiURL}leavings`)
+  getAllLeavings(): void {
+    this.http.get<ILeavings[]>(`${apiURL}leavings`).subscribe({
+      next: (res: any) => {
+        this.leavings = res.map((item: any) => ({
+          ...item,
+          daysOnStock: this.daysOnStock(item.lastPostingDate),
+          cost: (item.cost === null) ? {value: 0} : item.cost
+        }));
+        console.log(this.leavings);
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    })
   }
 
   /* Common functions */
@@ -137,5 +151,16 @@ export class GoodsService {
         console.log('updated Goods')
       }
     )
+  }
+
+  daysOnStock(lastPostingDate: Date): number | null {
+    if (lastPostingDate !== null) {
+      const today = new Date().getTime()
+      const lastPDate = new Date(lastPostingDate).getTime()
+      const diffDate = today - lastPDate
+      return Math.floor(diffDate / (1000 * 60 * 60 * 24));
+    } else {
+      return 0;
+    }
   }
 }

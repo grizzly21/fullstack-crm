@@ -15,6 +15,7 @@ export class AllSalesComponent {
     this.dialogService.open(AddSalesComponent, {
       header: 'Додати продажу',
       width: '800px',
+      height: '800px',
       modal: true,
     });
   }

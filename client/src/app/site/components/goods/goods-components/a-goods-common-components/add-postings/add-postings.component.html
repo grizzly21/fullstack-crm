@@ -58,6 +58,7 @@
                 placeholder="Оберіть товар.."
                 [filter]="true"
                 filterBy="code,name"
+                appendTo="body"
               >
                 <ng-template pTemplate="selectedItem">
                   <div *ngIf="!!products.controls[i].get('productId')">

@@ -15,12 +15,75 @@
         </div>
         <div class="field col">
           <label for="shift">Зміна</label>
-          <input type="text" pInputText>
+          <input type="text" pInputText />
         </div>
       </div>
       <div class="field">
         <label for="prod">Товари</label>
-        <ng-container id="prod"></ng-container>
+        <ng-container
+          id="prod"
+          *ngFor="let product of products.controls; let i = index"
+        >
+          <div class="formgrid grid product-list-inputs" [formGroupName]="i">
+            <div class="field col-12 md:col-7">
+              <p-dropdown
+                [options]="goodsService.allGoods"
+                formControlName="productId"
+                optionLabel="name"
+                [showClear]="false"
+                placeholder="Оберіть товар.."
+                [filter]="true"
+                filterBy="code,name"
+              >
+                <ng-template pTemplate="selectedItem">
+                  <div *ngIf="!!products.controls[i].get('productId')">
+                    <span>
+                      {{ products.controls[i].get("productId")?.value.code }}
+                      {{ products.controls[i].get("productId")?.value.name }}
+                    </span>
+                  </div>
+                </ng-template>
+                <ng-template let-product pTemplate="item">
+                  <div>
+                    <span>{{ product.code }} {{ product.name }}</span>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+            </div>
+            <div class="field col-12 md:col-2">
+              <p-inputNumber
+                formControlName="pricePerItem"
+                placeholder="Ціна"
+              ></p-inputNumber>
+            </div>
+            <div class="field col-12 md:col-2">
+              <p-inputNumber
+                formControlName="count"
+                mode="decimal"
+                [useGrouping]="false"
+                placeholder="Кількість"
+              ></p-inputNumber>
+            </div>
+            <div class="field col-12 md:col-1" *ngIf="i !== 0">
+              <button
+                pButton
+                type="button"
+                class="p-button-rounded p-button-danger p-button-text"
+                icon="pi pi-times"
+                (click)="removeProductControl(i)"
+              ></button>
+            </div>
+            <div class="field col-12 md:col-1" *ngIf="i === 0">
+              <button
+                pButton
+                type="button"
+                class="p-button-rounded p-button-success p-button-text"
+                icon="pi pi-plus"
+                (click)="addProducts()"
+              ></button>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </form>
   </div>

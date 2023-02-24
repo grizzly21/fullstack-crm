@@ -28,3 +28,35 @@ export interface ICategory {
   id: number;
   name: string;
 }
+
+export interface ILeavings {
+  product: {
+    id: number;
+    name: string;
+    description: string;
+    code: number;
+    article: string;
+    price: number;
+    currency: number;
+    addedBy: {
+      id: string;
+      email: string;
+      displayName: string;
+    };
+    category: {
+      id: number;
+      name: string;
+    };
+    attachments: [{
+      id: string;
+      name: string;
+      extension: string;
+    }];
+  };
+  lastPostingDate: string;
+  cost: {
+    value: number;
+    currency: number;
+  };
+  inStockCount: number;
+}
