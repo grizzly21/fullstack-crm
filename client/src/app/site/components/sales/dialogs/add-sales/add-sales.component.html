@@ -1,12 +1,13 @@
 <div class="grid p-fluid">
   <div class="col-12">
-    <form>
+    <form [formGroup]="addSaleForm" novalidate>
       <div class="formgrid grid">
         <div class="field col">
           <label for="agent">Контрагент</label>
           <p-dropdown
             placeholder="Choose.."
             [options]="agentService.agents"
+            formControlName="agentId"
             optionLabel="fullName"
             optionValue="id"
             appendTo="body"
@@ -15,10 +16,10 @@
         </div>
         <div class="field col">
           <label for="shift">Зміна</label>
-          <input type="text" pInputText />
+          <input type="text" pInputText formControlName="shift" />
         </div>
       </div>
-      <div class="field">
+      <div class="field product-list" formArrayName="products">
         <label for="prod">Товари</label>
         <ng-container
           id="prod"
@@ -27,25 +28,54 @@
           <div class="formgrid grid product-list-inputs" [formGroupName]="i">
             <div class="field col-12 md:col-7">
               <p-dropdown
-                [options]="goodsService.allGoods"
+                [options]="goodsService.leavings"
                 formControlName="productId"
-                optionLabel="name"
+                optionLabel="product.name"
                 [showClear]="false"
                 placeholder="Оберіть товар.."
                 [filter]="true"
                 filterBy="code,name"
+                appendTo="body"
               >
                 <ng-template pTemplate="selectedItem">
                   <div *ngIf="!!products.controls[i].get('productId')">
-                    <span>
-                      {{ products.controls[i].get("productId")?.value.code }}
-                      {{ products.controls[i].get("productId")?.value.name }}
-                    </span>
+                    <div class="flex justify-content-between">
+                      <div>
+                        <span>
+                          {{products.controls[i].get("productId")?.value.product
+                              .code}}
+                          {{products.controls[i].get("productId")?.value.product
+                              .name }}
+                        </span>
+                      </div>
+                      <div>
+                        <span
+                          class="p-1 border-round-md bg-red-300"
+                          *ngIf="
+                            products.controls[i].get('productId')?.value
+                              .inStockCount === 0 ">
+                              {{products.controls[i].get("productId")?.value
+                              .inStockCount }}</span>
+                        <span
+                          class="p-1 border-round-md bg-green-400"
+                          *ngIf="products.controls[i].get('productId')?.value
+                              .inStockCount > 0">
+                              {{products.controls[i].get("productId")?.value
+                              .inStockCount }}</span>
+                      </div>
+                    </div>
                   </div>
                 </ng-template>
                 <ng-template let-product pTemplate="item">
-                  <div>
-                    <span>{{ product.code }} {{ product.name }}</span>
+                  <div class="dropdown-items-list">
+                    <span>{{ product.product.code }}
+                      {{ product.product.name }}</span>
+                    <span
+                      class="p-1 border-round-md bg-red-300"
+                      *ngIf="product.inStockCount === 0">{{ product.inStockCount }}</span>
+                    <span
+                      class="p-1 border-round-md bg-green-400"
+                      *ngIf="product.inStockCount > 0">{{ product.inStockCount }}</span>
                   </div>
                 </ng-template>
               </p-dropdown>
@@ -54,6 +84,7 @@
               <p-inputNumber
                 formControlName="pricePerItem"
                 placeholder="Ціна"
+                (ngModelChange)="total()"
               ></p-inputNumber>
             </div>
             <div class="field col-12 md:col-2">
@@ -62,6 +93,9 @@
                 mode="decimal"
                 [useGrouping]="false"
                 placeholder="Кількість"
+                [min]="1"
+                [max]="products.controls[i].get('productId')?.value.inStockCount"
+                (ngModelChange)="total()"
               ></p-inputNumber>
             </div>
             <div class="field col-12 md:col-1" *ngIf="i !== 0">
@@ -84,6 +118,30 @@
             </div>
           </div>
         </ng-container>
+      </div>
+      <div class="results flex flex-column gap-2">
+        <div class="results-data flex justify-content-between flex-wrap">
+          <span>До оплати:</span>
+          <span>{{totalCount | currency : 'UAH': 'UAH '}}</span>
+        </div>
+        <div class="results-inputs">
+          <p-dropdown
+            appendTo="body"
+            [options]="typesOfPaying"
+            optionLabel="label"
+            optionValue="typeId"
+          ></p-dropdown>
+        </div>
+      </div>
+      <div class="field">
+        <button
+          class="save_btn"
+          pButton
+          label="Зберегти"
+          form="postingForm"
+          type="submit"
+          [disabled]="addSaleForm.invalid"
+        ></button>
       </div>
     </form>
   </div>

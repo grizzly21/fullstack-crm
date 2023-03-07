@@ -51,7 +51,7 @@ export class AddPostingsComponent implements OnInit {
         this.fb.group({
           productId: ['', Validators.required],
           pricePerItem: [null, Validators.required],
-          count: [null, Validators.required],
+          count: [null, Validators.required, Validators.min(1)],
         }),
       ]),
     });

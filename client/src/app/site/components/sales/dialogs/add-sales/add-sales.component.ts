@@ -10,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddSalesComponent implements OnInit {
   addSaleForm!: FormGroup;
+  typesOfPaying!: any[]
+  totalCount: number = 0
 
   constructor(
     public agentService: AgentsService,
@@ -19,6 +21,13 @@ export class AddSalesComponent implements OnInit {
 
   ngOnInit(): void {
     this.agentService.getAllAgents();
+    this.goodsService.getAllLeavings()
+
+    this.typesOfPaying = [
+      {label: 'Готівкою', typeId: 0},
+      {label: 'Картою', typeId: 1},
+      {label: 'Змішана', typeId: 2},
+    ]
 
     this.addSaleForm = this.fb.group({
       agentId: ['', Validators.required],
@@ -27,7 +36,7 @@ export class AddSalesComponent implements OnInit {
         this.fb.group({
           productId: ['', Validators.required],
           pricePerItem: [null, Validators.required],
-          count: [null, Validators.required],
+          count: [1, Validators.required],
         }),
       ]),
     })
@@ -35,6 +44,16 @@ export class AddSalesComponent implements OnInit {
 
   get products(): FormArray {
     return <FormArray>this.addSaleForm.get('products');
+  }
+
+  total(): void {
+    this.totalCount = 0
+    let data = this.addSaleForm.value
+    let sum = 0
+    data.products.forEach((element: any) => {
+      sum += element.pricePerItem * element.count
+    })
+    this.totalCount = sum
   }
 
   newProduct(): FormGroup {

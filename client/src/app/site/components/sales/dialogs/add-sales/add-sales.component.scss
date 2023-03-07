@@ -1,3 +1,39 @@
 ::ng-deep .p-dialog-content{
   overflow-y: clip;
 }
+.dropdown-items-list{
+  display: flex;
+  justify-content: space-between;
+}
+
+::ng-deep .p-dropdown-panel .p-dropdown-items .p-dropdown-item{
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+.product-list{
+  max-height: 470px;
+  overflow-y: auto;
+
+  &-inputs{
+    label{
+      position: sticky;
+      top: 0;
+      left: 0;
+    }
+
+    width: 100%;
+
+    .field{
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.save_btn{
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  width: 200px;
+}
+
