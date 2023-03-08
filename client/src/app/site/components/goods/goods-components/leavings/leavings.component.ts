@@ -1,6 +1,6 @@
-import { formatDate } from '@angular/common';
-import { GoodsService } from './../../../../classes/services/goods.service';
-import { Component, OnInit } from '@angular/core';
+import { formatDate } from '@angular/common'
+import { GoodsService } from '../../../../../services/goods.service'
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-leavings',
@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./leavings.component.scss'],
 })
 export class LeavingsComponent implements OnInit {
-  leavings: any = [];
+  leavings: any = []
 
   constructor(public goodsService: GoodsService) {}
 

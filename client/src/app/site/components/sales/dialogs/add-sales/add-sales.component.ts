@@ -1,7 +1,7 @@
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { GoodsService } from './../../../../classes/services/goods.service';
-import { AgentsService } from './../../../../classes/services/agents.service';
-import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { GoodsService } from '../../../../../services/goods.service'
+import { AgentsService } from '../../../../../services/agents.service'
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-add-sales',
@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-sales.component.scss'],
 })
 export class AddSalesComponent implements OnInit {
-  addSaleForm!: FormGroup;
+  addSaleForm!: FormGroup
   typesOfPaying!: any[]
   totalCount: number = 0
 
@@ -20,13 +20,13 @@ export class AddSalesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.agentService.getAllAgents();
+    this.agentService.getAllAgents()
     this.goodsService.getAllLeavings()
 
     this.typesOfPaying = [
-      {label: 'Готівкою', typeId: 0},
-      {label: 'Картою', typeId: 1},
-      {label: 'Змішана', typeId: 2},
+      { label: 'Готівкою', typeId: 0 },
+      { label: 'Картою', typeId: 1 },
+      { label: 'Змішана', typeId: 2 },
     ]
 
     this.addSaleForm = this.fb.group({
@@ -43,7 +43,7 @@ export class AddSalesComponent implements OnInit {
   }
 
   get products(): FormArray {
-    return <FormArray>this.addSaleForm.get('products');
+    return <FormArray>this.addSaleForm.get('products')
   }
 
   total(): void {
@@ -61,17 +61,17 @@ export class AddSalesComponent implements OnInit {
       productId: ['', Validators.required],
       count: [null, Validators.required],
       pricePerItem: [null, Validators.required],
-    });
+    })
   }
 
   addProducts() {
-    this.products.push(this.newProduct());
+    this.products.push(this.newProduct())
   }
 
   removeProductControl(index: number) {
     if (index === 0) {
-      alert('you cant delete last item');
+      alert('you cant delete last item')
     }
-    (<FormArray>this.addSaleForm.get('products')).removeAt(index);
+    ;(<FormArray>this.addSaleForm.get('products')).removeAt(index)
   }
 }

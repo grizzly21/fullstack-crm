@@ -1,22 +1,23 @@
+import { apiURL } from '../../config/urls';
+import { IUser } from '../../interfaces/user.interface';
+import { IUserInfo } from '../../interfaces/user-info.interface';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../common/interfaces';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl: string = 'http://localhost:8080/'
 
   constructor(private http: HttpClient) {}
 
-  register(user: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl + 'register', user);
+  register(user: IUserInfo): Observable<IUserInfo> {
+    return this.http.post<IUserInfo>(`${apiURL}register`, user);
   }
 
-  login(user: User): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(this.apiUrl + 'login', user).pipe(
+  login(user: IUser): Observable<{ token: string }> {
+    return this.http.post<{ token: string }>(`${apiURL}login`, user).pipe(
       tap(({ token }) => {
         this.setToken(token);
       })
@@ -28,7 +29,7 @@ export class AuthService {
   }
 
   getToken(): string | undefined {
-    let token = localStorage.getItem('auth-token');
+    const token = localStorage.getItem('auth-token');
     if(token !== undefined){
       return token?.toString()
     }
@@ -36,7 +37,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('auth-token');
+    return Boolean(localStorage.getItem('auth-token'));
   }
 
   logout() {

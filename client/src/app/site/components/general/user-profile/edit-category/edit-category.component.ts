@@ -1,8 +1,8 @@
-import { AddCategoryComponent } from './add-category/add-category/add-category.component';
-import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
-import { Component, OnInit } from '@angular/core';
-import { GoodsService } from '../../../../classes/services/goods.service';
-import { ConfirmationService, TreeNode } from 'primeng/api';
+import { AddCategoryComponent } from './add-category/add-category/add-category.component'
+import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog'
+import { Component, OnInit } from '@angular/core'
+import { GoodsService } from '../../../../../services/goods.service'
+import { ConfirmationService, TreeNode } from 'primeng/api'
 
 @Component({
   selector: 'app-edit-category',
@@ -17,8 +17,8 @@ export class EditCategoryComponent implements OnInit {
     private confirmService: ConfirmationService
   ) {}
 
-  ref!: DynamicDialogRef;
-  selectionCategory!: TreeNode;
+  ref!: DynamicDialogRef
+  selectionCategory!: TreeNode
 
   ngOnInit() {
     this.goodsService.getAllCategories().subscribe(
@@ -26,38 +26,44 @@ export class EditCategoryComponent implements OnInit {
         console.log(next)
       },
       (error) => {
-        console.error(error);
+        console.error(error)
       }
-    );
+    )
   }
 
   confirmDelete() {
     this.confirmService.confirm({
       message: 'Are you sure to delete this category?',
       accept: () => {
-        if(this.selectionCategory !== undefined){
+        if (this.selectionCategory !== undefined) {
           console.log(this.selectionCategory)
-          this.goodsService.deleteCategory(this.selectionCategory.data).subscribe(
-            next => {
-              console.log(next)
-              this.updateCategories()
-            },
-            err => {
-              console.log(err)
-              alert(err.error)
-            }
-          )
-        }else {
+          this.goodsService
+            .deleteCategory(this.selectionCategory.data)
+            .subscribe(
+              (next) => {
+                console.log(next)
+                this.updateCategories()
+              },
+              (err) => {
+                console.log(err)
+                alert(err.error)
+              }
+            )
+        } else {
           alert('Select category, please!')
         }
-      }
+      },
     })
   }
 
-  updateCategories(){
+  updateCategories() {
     this.goodsService.getAllCategories().subscribe(
-      next => {console.log('updated')},
-      err => {console.log('err')}
+      (next) => {
+        console.log('updated')
+      },
+      (err) => {
+        console.log('err')
+      }
     )
   }
 
@@ -66,6 +72,6 @@ export class EditCategoryComponent implements OnInit {
       header: 'Додати категорію',
       closable: true,
       width: '450px',
-    });
+    })
   }
 }

@@ -1,9 +1,9 @@
-import { ConfirmationService } from 'primeng/api';
-import { AddTaskComponent } from './pop-up/add-task/add-task.component';
-import { DialogService } from 'primeng/dynamicdialog';
-import { TaskService } from './tasks-service/task.service';
-import { Component, OnInit } from '@angular/core';
-import { ITask } from '../../classes/interfaces';
+import { ConfirmationService } from 'primeng/api'
+import { AddTaskComponent } from './pop-up/add-task/add-task.component'
+import { DialogService } from 'primeng/dynamicdialog'
+import { TaskService } from '../../../services/task.service'
+import { Component, OnInit } from '@angular/core'
+import { ITask } from 'src/app/interfaces/task.interface'
 
 @Component({
   selector: 'app-tasks',
@@ -12,9 +12,9 @@ import { ITask } from '../../classes/interfaces';
   providers: [DialogService, ConfirmationService],
 })
 export class TasksComponent implements OnInit {
-  showAddDialog: boolean = false;
+  showAddDialog: boolean = false
 
-  tasks: ITask[] = [];
+  tasks: ITask[] = []
 
   constructor(
     private taskService: TaskService,
@@ -26,39 +26,41 @@ export class TasksComponent implements OnInit {
     this.updateTasks()
   }
 
-  updateTasks(){
+  updateTasks() {
     this.taskService.getAllTasks().subscribe(
       (next) => {
-        this.tasks = next;
+        this.tasks = next
       },
       (err) => {
-        console.error(err);
+        console.error(err)
       }
-    );
+    )
   }
 
   checkDate(targetDate: Date): boolean {
-    let today = new Date().getTime();
-    let target = new Date(targetDate).getTime();
+    let today = new Date().getTime()
+    let target = new Date(targetDate).getTime()
     if (target < today) {
-      return true;
+      return true
     }
-    return false;
+    return false
   }
 
   deleteTask(id: number) {
     this.confirmService.confirm({
       message: 'Are you sure to delete this task?',
       accept: () => {
-        this.taskService.deleteTask(id).subscribe(() => {this.updateTasks()});
+        this.taskService.deleteTask(id).subscribe(() => {
+          this.updateTasks()
+        })
       },
-    });
+    })
   }
 
   showDialog() {
     const ref = this.dialogService.open(AddTaskComponent, {
       header: 'Add Task',
-      width: '600px'
+      width: '600px',
     })
   }
 
@@ -67,8 +69,8 @@ export class TasksComponent implements OnInit {
       header: 'Edit Task',
       width: '600px',
       data: {
-        task: task
-      }
+        task: task,
+      },
     })
   }
 }

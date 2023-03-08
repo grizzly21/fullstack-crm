@@ -42,40 +42,50 @@
                     <div class="flex justify-content-between">
                       <div>
                         <span>
-                          {{products.controls[i].get("productId")?.value.product
-                              .code}}
-                          {{products.controls[i].get("productId")?.value.product
-                              .name }}
+                          {{
+                            products.controls[i].get("productId")?.value.product
+                              .code
+                          }}
+                          {{
+                            products.controls[i].get("productId")?.value.product
+                              .name
+                          }}
                         </span>
                       </div>
                       <div>
                         <span
-                          class="p-1 border-round-md bg-red-300"
-                          *ngIf="
+                          class="p-1 border-round-md"
+                          [ngClass]="
                             products.controls[i].get('productId')?.value
-                              .inStockCount === 0 ">
-                              {{products.controls[i].get("productId")?.value
-                              .inStockCount }}</span>
-                        <span
-                          class="p-1 border-round-md bg-green-400"
-                          *ngIf="products.controls[i].get('productId')?.value
-                              .inStockCount > 0">
-                              {{products.controls[i].get("productId")?.value
-                              .inStockCount }}</span>
+                              .inStockCount === 0
+                              ? 'bg-red-300'
+                              : 'bg-green-400'
+                          "
+                        >
+                          {{
+                            products.controls[i].get("productId")?.value
+                              .inStockCount
+                          }}</span
+                        >
                       </div>
                     </div>
                   </div>
                 </ng-template>
                 <ng-template let-product pTemplate="item">
                   <div class="dropdown-items-list">
-                    <span>{{ product.product.code }}
-                      {{ product.product.name }}</span>
                     <span
-                      class="p-1 border-round-md bg-red-300"
-                      *ngIf="product.inStockCount === 0">{{ product.inStockCount }}</span>
+                      >{{ product.product.code }}
+                      {{ product.product.name }}</span
+                    >
                     <span
-                      class="p-1 border-round-md bg-green-400"
-                      *ngIf="product.inStockCount > 0">{{ product.inStockCount }}</span>
+                      class="p-1 border-round-md"
+                      [ngClass]="
+                        product.inStockCount === 0
+                          ? 'bg-red-300'
+                          : 'bg-green-400'
+                      "
+                      >{{ product.inStockCount }}</span
+                    >
                   </div>
                 </ng-template>
               </p-dropdown>
@@ -94,7 +104,9 @@
                 [useGrouping]="false"
                 placeholder="Кількість"
                 [min]="1"
-                [max]="products.controls[i].get('productId')?.value.inStockCount"
+                [max]="
+                  products.controls[i].get('productId')?.value.inStockCount
+                "
                 (ngModelChange)="total()"
               ></p-inputNumber>
             </div>
@@ -122,7 +134,7 @@
       <div class="results flex flex-column gap-2">
         <div class="results-data flex justify-content-between flex-wrap">
           <span>До оплати:</span>
-          <span>{{totalCount | currency : 'UAH': 'UAH '}}</span>
+          <span>{{ totalCount | currency : "UAH" : "UAH " }}</span>
         </div>
         <div class="results-inputs">
           <p-dropdown

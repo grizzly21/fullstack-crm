@@ -1,14 +1,14 @@
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AgentsService } from './../../../../classes/services/agents.service';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms'
+import { AgentsService } from '../../../../../services/agents.service'
+import { DynamicDialogRef } from 'primeng/dynamicdialog'
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-add-counterparty',
   templateUrl: './add-counterparty.component.html',
   styleUrls: ['./add-counterparty.component.scss'],
 })
-export class AddCounterpartyComponent implements OnInit{
+export class AddCounterpartyComponent implements OnInit {
   addAgentForm!: FormGroup
 
   constructor(
@@ -26,7 +26,7 @@ export class AddCounterpartyComponent implements OnInit{
     })
   }
 
-  onAddAgent(){
+  onAddAgent() {
     this.agenstService.createAgent(this.addAgentForm.value).subscribe({
       next: (res) => {
         console.log(res)
@@ -35,8 +35,7 @@ export class AddCounterpartyComponent implements OnInit{
       },
       error: (err) => {
         console.error(err)
-      }
+      },
     })
   }
-
 }

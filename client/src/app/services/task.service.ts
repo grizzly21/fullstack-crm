@@ -1,14 +1,14 @@
-import { ITask } from './../../../classes/interfaces';
-import { Observable, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { ITask } from 'src/app/interfaces/task.interface'
+import { Observable, tap } from 'rxjs'
+import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
 
 @Injectable()
 export class TaskService {
-  private readonly apiUrl: string = 'http://localhost:8080/';
+  private readonly apiUrl: string = 'http://localhost:8080/'
   constructor(private http: HttpClient) {}
 
-  tasks: ITask[] = [];
+  tasks: ITask[] = []
 
   getAllTasks(): Observable<ITask[]> {
     return this.http.get<ITask[]>(this.apiUrl + 'tasks').pipe(
@@ -17,25 +17,25 @@ export class TaskService {
           obj.status = {
             title: Statuses[+obj.status],
             status: +obj.status,
-          };
-        });
+          }
+        })
       })
-    );
+    )
   }
 
   addTask(task: ITask): Observable<ITask> {
-    return this.http.post<ITask>(this.apiUrl + 'tasks', task);
+    return this.http.post<ITask>(this.apiUrl + 'tasks', task)
   }
 
   changeStatus(id: number, newStatus: number): Observable<any> {
     return this.http.put<any>(
       `${this.apiUrl}tasks/${id}/status?status=${+newStatus}`,
       ''
-    );
+    )
   }
 
   deleteTask(id: number) {
-    return this.http.delete(this.apiUrl + 'tasks/' + id);
+    return this.http.delete(this.apiUrl + 'tasks/' + id)
   }
 }
 

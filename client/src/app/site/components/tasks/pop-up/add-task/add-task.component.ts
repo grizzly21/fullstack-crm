@@ -1,11 +1,15 @@
-import { ITask } from './../../../../classes/interfaces';
-import { TasksComponent } from './../../tasks.component';
-import { TaskService } from './../../tasks-service/task.service';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DynamicDialogConfig, DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
-import { formatDate } from '@angular/common';
+import { TasksComponent } from './../../tasks.component'
+import { TaskService } from '../../../../../services/task.service'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { PrimeNGConfig } from 'primeng/api'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
+import {
+  DynamicDialogConfig,
+  DynamicDialogRef,
+  DialogService,
+} from 'primeng/dynamicdialog'
+import { formatDate } from '@angular/common'
+import { ITask } from 'src/app/interfaces/task.interface'
 
 @Component({
   selector: 'app-add-task',
@@ -14,13 +18,13 @@ import { formatDate } from '@angular/common';
   providers: [DialogService],
 })
 export class AddTaskComponent implements OnInit {
-  @Input() addDialog!: boolean;
-  @Output() hideDialog = new EventEmitter<boolean>();
+  @Input() addDialog!: boolean
+  @Output() hideDialog = new EventEmitter<boolean>()
 
-  statuses!: any[];
-  addTaskForm!: FormGroup;
-  minDate!: Date;
-  editTaskData!: ITask | any;
+  statuses!: any[]
+  addTaskForm!: FormGroup
+  minDate!: Date
+  editTaskData!: ITask
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -34,30 +38,34 @@ export class AddTaskComponent implements OnInit {
     this.primengConfig.overlayOptions = {
       mode: 'overlay',
       appendTo: 'body',
-    };
+    }
 
     this.statuses = [
       { label: 'Не завершений', value: 0 },
       { label: 'В роботі', value: 1 },
       { label: 'Виконано', value: 2 },
-    ];
+    ]
 
     this.addTaskForm = new FormGroup({
       title: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
       status: new FormControl(null, [Validators.required]),
       targetDate: new FormControl(null, [Validators.required]),
-    });
+    })
 
-    this.minDate = new Date();
+    this.minDate = new Date()
 
-    if(this.config.data){
+    if (this.config.data) {
       this.editTaskData = this.config.data?.task
       this.addTaskForm.setValue({
         title: this.editTaskData.title,
         description: this.editTaskData.description,
         status: this.editTaskData.status.status,
-        targetDate: formatDate(this.editTaskData.targetDate, 'dd.MM.YYYY', 'en-US')
+        targetDate: formatDate(
+          this.editTaskData.targetDate,
+          'dd.MM.YYYY',
+          'en-US'
+        ),
       })
 
       this.addTaskForm.get('title')?.disable()
@@ -67,29 +75,32 @@ export class AddTaskComponent implements OnInit {
   }
 
   onAddTask() {
-    if(this.editTaskData?.id){
-      this.taskService.changeStatus(this.editTaskData.id, +this.addTaskForm.get('status')?.value)
+    if (this.editTaskData?.id) {
+      this.taskService
+        .changeStatus(
+          this.editTaskData.id,
+          +this.addTaskForm.get('status')?.value
+        )
         .subscribe(
-          next => {
+          (next) => {
             this.tasksComponent.updateTasks()
-            this.editTaskData = {}
             this.ref.close()
           },
-          err => {
+          (err) => {
             console.log(err)
           }
         )
-    }else{
+    } else {
       this.taskService.addTask(this.addTaskForm.value).subscribe(
         (next) => {
-          this.addTaskForm.reset();
-          this.tasksComponent.updateTasks();
+          this.addTaskForm.reset()
+          this.tasksComponent.updateTasks()
           this.ref.close()
         },
         (err) => {
-          console.error(err);
+          console.error(err)
         }
-      );
+      )
     }
   }
 }

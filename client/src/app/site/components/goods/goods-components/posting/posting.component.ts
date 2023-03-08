@@ -1,10 +1,10 @@
-import { PostingDetailsComponent } from './../a-goods-common-components/posting-details/posting-details.component';
-import { formatDate } from '@angular/common';
-import { GoodsService } from './../../../../classes/services/goods.service';
-import { OnInit } from '@angular/core';
-import { AddPostingsComponent } from './../a-goods-common-components/add-postings/add-postings.component';
-import { Component } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { PostingDetailsComponent } from './../a-goods-common-components/posting-details/posting-details.component'
+import { formatDate } from '@angular/common'
+import { GoodsService } from '../../../../../services/goods.service'
+import { OnInit } from '@angular/core'
+import { AddPostingsComponent } from './../a-goods-common-components/add-postings/add-postings.component'
+import { Component } from '@angular/core'
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog'
 
 @Component({
   selector: 'app-posting',
@@ -12,30 +12,30 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
   styleUrls: ['./posting.component.scss'],
   providers: [DialogService],
 })
-export class PostingComponent implements OnInit{
+export class PostingComponent implements OnInit {
   constructor(
     public dialogService: DialogService,
-    private goodsService: GoodsService,
+    private goodsService: GoodsService
   ) {}
 
-  ref!: DynamicDialogRef;
+  ref!: DynamicDialogRef
 
-  public postings: any = [];
+  public postings: any = []
 
-  ngOnInit(){
+  ngOnInit() {
     this.getAllPostings()
   }
 
   getAllPostings() {
     this.goodsService.getAllPostings().subscribe({
-      next: (res: any)=> {
+      next: (res: any) => {
         this.postings = res
-      }
+      },
     })
   }
 
   getEventValue($event: any): string {
-    return $event.target?.value;
+    return $event.target?.value
   }
 
   showDialog() {
@@ -44,16 +44,20 @@ export class PostingComponent implements OnInit{
       width: '800px',
       height: '800px',
       closable: true,
-    });
+    })
   }
 
-  showDialogById(data: any){
+  showDialogById(data: any) {
     this.ref = this.dialogService.open(PostingDetailsComponent, {
-      header: `Оприбуткування №${data.id} від ${formatDate(data.date, 'dd.MM.YYYY hh:mm', 'en-US')}`,
+      header: `Оприбуткування №${data.id} від ${formatDate(
+        data.date,
+        'dd.MM.YYYY hh:mm',
+        'en-US'
+      )}`,
       width: '1000px',
       height: '800px',
       closable: true,
-      data: data
+      data: data,
     })
   }
 }

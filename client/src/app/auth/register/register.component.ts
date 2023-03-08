@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IUserInfo } from '../../interfaces/user-info.interface'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 
-import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
-import { User } from '../common/interfaces';
-import { AuthService } from '../services/auth.service';
+import { Subscription } from 'rxjs'
+import { Router } from '@angular/router'
+import { AuthService } from '../services/auth.service'
 
 @Component({
   selector: 'app-register',
@@ -12,8 +12,8 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['../login/login.component.scss'],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
-  registerForm!: FormGroup;
-  aSab!: Subscription;
+  registerForm!: FormGroup
+  aSab!: Subscription
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -29,35 +29,37 @@ export class RegisterComponent implements OnInit, OnDestroy {
         Validators.minLength(6),
       ]),
       name: new FormControl(null, [Validators.required]),
-    });
+    })
   }
 
   onRegister() {
-    this.registerForm.disable();
-    const user = {
+    this.registerForm.disable()
+    const user: IUserInfo = {
       email: this.registerForm.get('email')?.value,
       password: this.registerForm.get('password')?.value,
       displayName: this.registerForm.get('name')?.value,
-    } as User;
+    }
 
     this.aSab = this.authService.register(user).subscribe(
       () => {
-        this.registerForm.reset();
+        this.registerForm.reset()
         this.router.navigate(['/login'], {
           queryParams: {
             registered: true,
           },
-        });
+        })
       },
       (err) => {
-        this.registerForm.reset();
-        this.registerForm.enable();
-        alert(err.error.message);
+        this.registerForm.reset()
+        this.registerForm.enable()
+        alert(err.error.message)
       }
-    );
+    )
   }
 
   ngOnDestroy() {
-    //this.aSab.unsubscribe()
+    if (this.aSab) {
+      this.aSab.unsubscribe()
+    }
   }
 }

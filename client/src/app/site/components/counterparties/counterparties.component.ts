@@ -1,7 +1,7 @@
-import { AgentsService } from './../../classes/services/agents.service';
-import { AddCounterpartyComponent } from './dialogs/add-counterparty/add-counterparty.component';
-import { DialogService } from 'primeng/dynamicdialog';
-import { Component, OnInit } from '@angular/core';
+import { AgentsService } from '../../../services/agents.service'
+import { AddCounterpartyComponent } from './dialogs/add-counterparty/add-counterparty.component'
+import { DialogService } from 'primeng/dynamicdialog'
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-counterparties',
@@ -10,7 +10,6 @@ import { Component, OnInit } from '@angular/core';
   providers: [DialogService],
 })
 export class CounterpartiesComponent implements OnInit {
-
   constructor(
     private dialogService: DialogService,
     public agentsService: AgentsService
@@ -26,6 +25,6 @@ export class CounterpartiesComponent implements OnInit {
       width: '600px',
       closable: true,
       modal: true,
-    });
+    })
   }
 }
