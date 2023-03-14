@@ -1,3 +1,6 @@
+import { LeavingsService } from './../services/leavings.service'
+import { StockService } from './../services/stock.service'
+import { CategoryService } from './../services/category.service'
 import { CustomCurrencyPipe } from './classes/pipes/custom-currency.pipe'
 import { TaskService } from '../services/task.service'
 import { TokenInterceptor } from './classes/token.interceptor'
@@ -125,6 +128,9 @@ import { AddSalesComponent } from './components/sales/dialogs/add-sales/add-sale
     AuthGuard,
     TaskService,
     AgentsService,
+    CategoryService,
+    StockService,
+    LeavingsService,
   ],
   bootstrap: [SiteContainer],
 })

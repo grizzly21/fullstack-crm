@@ -36,7 +36,11 @@
       </div>
       <div class="field">
         <label for="category">Category</label>
-        <p-treeSelect id="category" [options]="goodsService.categories" formControlName="categoryId">
+        <p-treeSelect
+          id="category"
+          [options]="categoryService.categories"
+          formControlName="categoryId"
+        >
         </p-treeSelect>
       </div>
       <div class="field">
@@ -53,7 +57,11 @@
       <div class="formgrid grid">
         <div class="field col">
           <label for="quantity">Code</label>
-          <p-inputNumber id="quantity" [useGrouping]="false" formControlName="code"></p-inputNumber>
+          <p-inputNumber
+            id="quantity"
+            [useGrouping]="false"
+            formControlName="code"
+          ></p-inputNumber>
         </div>
         <div class="field col">
           <label for="price">Price</label>

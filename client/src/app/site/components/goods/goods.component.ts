@@ -1,3 +1,4 @@
+import { CategoryService } from './../../../services/category.service'
 import { Component, OnInit } from '@angular/core'
 import { MenuItem } from 'primeng/api'
 import { GoodsService } from '../../../services/goods.service'
@@ -10,7 +11,7 @@ import { GoodsService } from '../../../services/goods.service'
 export class GoodsComponent implements OnInit {
   items!: MenuItem[]
 
-  constructor(private goodsService: GoodsService) {}
+  constructor(private categoryService: CategoryService) {}
 
   ngOnInit() {
     this.items = [
@@ -20,7 +21,7 @@ export class GoodsComponent implements OnInit {
       { label: 'Інвентаризація', routerLink: 'inventory' },
     ]
 
-    this.goodsService.getAllCategories().subscribe(
+    this.categoryService.getAllCategories().subscribe(
       (next) => {},
       (error) => {
         console.log(error)

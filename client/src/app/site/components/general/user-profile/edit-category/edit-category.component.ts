@@ -1,3 +1,4 @@
+import { CategoryService } from './../../../../../services/category.service'
 import { AddCategoryComponent } from './add-category/add-category/add-category.component'
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog'
 import { Component, OnInit } from '@angular/core'
@@ -12,7 +13,7 @@ import { ConfirmationService, TreeNode } from 'primeng/api'
 })
 export class EditCategoryComponent implements OnInit {
   constructor(
-    public goodsService: GoodsService,
+    public categoryService: CategoryService,
     private dialogService: DialogService,
     private confirmService: ConfirmationService
   ) {}
@@ -21,7 +22,7 @@ export class EditCategoryComponent implements OnInit {
   selectionCategory!: TreeNode
 
   ngOnInit() {
-    this.goodsService.getAllCategories().subscribe(
+    this.categoryService.getAllCategories().subscribe(
       (next) => {
         console.log(next)
       },
@@ -37,7 +38,7 @@ export class EditCategoryComponent implements OnInit {
       accept: () => {
         if (this.selectionCategory !== undefined) {
           console.log(this.selectionCategory)
-          this.goodsService
+          this.categoryService
             .deleteCategory(this.selectionCategory.data)
             .subscribe(
               (next) => {
@@ -57,7 +58,7 @@ export class EditCategoryComponent implements OnInit {
   }
 
   updateCategories() {
-    this.goodsService.getAllCategories().subscribe(
+    this.categoryService.getAllCategories().subscribe(
       (next) => {
         console.log('updated')
       },

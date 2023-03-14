@@ -1,6 +1,6 @@
+import { CategoryService } from './../../../../../../../services/category.service'
 import { Subscription } from 'rxjs'
 import { DynamicDialogRef } from 'primeng/dynamicdialog'
-import { GoodsService } from '../../../../../../../services/goods.service'
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { EditCategoryComponent } from './../../edit-category.component'
 import { Component, OnDestroy, OnInit } from '@angular/core'
@@ -16,7 +16,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
 
   constructor(
     public editComp: EditCategoryComponent,
-    public goodsService: GoodsService,
+    public categoryService: CategoryService,
     private ref: DynamicDialogRef
   ) {}
 
@@ -26,7 +26,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
       parentId: new FormControl(''),
     })
 
-    if (this.goodsService.categories.length === 0) {
+    if (this.categoryService.categories.length === 0) {
       this.addCategoryForm.get('parentId')?.disable()
     }
   }
@@ -39,11 +39,11 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
       parentId: this.addCategoryForm.get('parentId')?.value.data,
     }
 
-    if (this.goodsService.categories.length === 0) {
+    if (this.categoryService.categories.length === 0) {
       delete data.parentId
     }
 
-    this.aSab = this.goodsService.addCategories(data).subscribe({
+    this.aSab = this.categoryService.addCategories(data).subscribe({
       next: () => {
         this.addCategoryForm.reset()
         this.ref.close()

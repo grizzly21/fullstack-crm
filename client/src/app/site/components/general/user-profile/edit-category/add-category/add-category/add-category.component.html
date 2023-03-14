@@ -16,7 +16,7 @@
         <label for="category">Батьківська категорія</label>
         <p-treeSelect
           id="category"
-          [options]="goodsService.categories"
+          [options]="categoryService.categories"
           formControlName="parentId"
           appendTo="body"
         >

@@ -1,3 +1,4 @@
+import { StockService } from './../../../../../services/stock.service'
 import { ConfirmationService } from 'primeng/api'
 import { GoodsService } from '../../../../../services/goods.service'
 import { OnInit } from '@angular/core'
@@ -14,12 +15,12 @@ export class EditStocksComponent implements OnInit {
   stockTitle: string = ''
 
   constructor(
-    public goodsService: GoodsService,
+    public stockService: StockService,
     private confDialog: ConfirmationService
   ) {}
 
   ngOnInit() {
-    this.goodsService.getStocks()
+    this.stockService.getStocks()
   }
 
   addStock() {
@@ -27,12 +28,12 @@ export class EditStocksComponent implements OnInit {
       alert('Please input title of new stock')
       return
     }
-    this.goodsService.createStocks(this.stockTitle).subscribe({
+    this.stockService.createStocks(this.stockTitle).subscribe({
       next: (response) => {
         console.log(response)
         this.dialogToggle = false
         this.stockTitle = ''
-        this.goodsService.getStocks()
+        this.stockService.getStocks()
       },
       error: (err) => {
         this.stockTitle = ''
@@ -45,7 +46,7 @@ export class EditStocksComponent implements OnInit {
     this.confDialog.confirm({
       message: 'Ви впевнені що хочете видалити цей склад?',
       accept: () => {
-        this.goodsService.deleteStocksById(stockId).subscribe({
+        this.stockService.deleteStocksById(stockId).subscribe({
           next: () => alert('Deleted!'),
           error: (err) => console.log(err),
         })

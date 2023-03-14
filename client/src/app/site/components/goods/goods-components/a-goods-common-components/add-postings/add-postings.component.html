@@ -11,7 +11,7 @@
           <label for="stocks">Склад</label>
           <p-dropdown
             placeholder="Оберіть.."
-            [options]="goodsService.stocks"
+            [options]="stockService.stocks"
             formControlName="stock"
             optionValue="id"
             optionLabel="title"

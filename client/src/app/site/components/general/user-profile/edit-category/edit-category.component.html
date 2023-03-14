@@ -20,7 +20,11 @@
       ></button>
     </ng-template>
   </p-toolbar>
-  <p-tree [value]="goodsService.categories" selectionMode="single" [(selection)]="selectionCategory"></p-tree>
+  <p-tree
+    [value]="categoryService.categories"
+    selectionMode="single"
+    [(selection)]="selectionCategory"
+  ></p-tree>
 </div>
 <p-confirmDialog
   header="Delete"

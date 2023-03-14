@@ -1,3 +1,4 @@
+import { CategoryService } from './../../../../../../services/category.service'
 import { Component, OnInit } from '@angular/core'
 import { PrimeNGConfig } from 'primeng/api'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
@@ -14,18 +15,13 @@ export class AddGoodsComponent implements OnInit {
   addGoodForm!: FormGroup
 
   constructor(
-    private primengConfig: PrimeNGConfig,
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    public goodsService: GoodsService
+    public categoryService: CategoryService,
+    private goodsService: GoodsService
   ) {}
 
   ngOnInit() {
-    this.primengConfig.overlayOptions = {
-      mode: 'overlay',
-      appendTo: 'body',
-    }
-
     this.addGoodForm = new FormGroup({
       name: new FormControl(null, [Validators.required]),
       attachments: new FormControl(null),

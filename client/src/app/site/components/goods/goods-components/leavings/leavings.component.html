@@ -1,5 +1,5 @@
 <div class="card">
-  <p-table #dt [rowHover]="true" [value]="goodsService.leavings">
+  <p-table #dt [rowHover]="true" [value]="leavingsService.leavings">
     <ng-template pTemplate="header">
       <tr>
         <th>Назва</th>
@@ -16,15 +16,15 @@
     </ng-template>
     <ng-template pTemplate="body" let-post>
       <tr>
-        <td>{{post.product.name}}</td>
-        <td>{{post.product.code}}</td>
-        <td>{{post.product.article}}</td>
-        <td>{{post.inStockCount}}</td>
+        <td>{{ post.product.name }}</td>
+        <td>{{ post.product.code }}</td>
+        <td>{{ post.product.article }}</td>
+        <td>{{ post.inStockCount }}</td>
         <td>0</td>
-        <td>{{post.inStockCount}}</td>
-        <td>{{post.daysOnStock}}</td>
-        <td>{{post.cost.value}}</td>
-        <td>{{post.product.price}}</td>
+        <td>{{ post.inStockCount }}</td>
+        <td>{{ post.daysOnStock }}</td>
+        <td>{{ post.cost.value }}</td>
+        <td>{{ post.product.price }}</td>
         <td>0</td>
       </tr>
     </ng-template>

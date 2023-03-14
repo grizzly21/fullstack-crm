@@ -1,6 +1,6 @@
+import { StockService } from './../../../../../../services/stock.service'
 import { DynamicDialogConfig } from 'primeng/dynamicdialog'
 import { OnInit } from '@angular/core'
-import { GoodsService } from '../../../../../../services/goods.service'
 import { Component } from '@angular/core'
 
 @Component({
@@ -12,12 +12,12 @@ export class PostingDetailsComponent implements OnInit {
   public postingsDetails!: any
 
   constructor(
-    private goodsService: GoodsService,
+    private stockService: StockService,
     private config: DynamicDialogConfig
   ) {}
 
   ngOnInit(): void {
-    this.goodsService.getPostingById(this.config.data.id).subscribe({
+    this.stockService.getPostingById(this.config.data.id).subscribe({
       next: (posting) => {
         this.postingsDetails = posting
       },

@@ -28,7 +28,7 @@
           <div class="formgrid grid product-list-inputs" [formGroupName]="i">
             <div class="field col-12 md:col-7">
               <p-dropdown
-                [options]="goodsService.leavings"
+                [options]="leavingsService.leavings"
                 formControlName="productId"
                 optionLabel="product.name"
                 [showClear]="false"

@@ -1,3 +1,4 @@
+import { LeavingsService } from './../../../../../services/leavings.service'
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { GoodsService } from '../../../../../services/goods.service'
 import { AgentsService } from '../../../../../services/agents.service'
@@ -15,13 +16,13 @@ export class AddSalesComponent implements OnInit {
 
   constructor(
     public agentService: AgentsService,
-    public goodsService: GoodsService,
+    public leavingsService: LeavingsService,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.agentService.getAllAgents()
-    this.goodsService.getAllLeavings()
+    this.leavingsService.getAllLeavings()
 
     this.typesOfPaying = [
       { label: 'Готівкою', typeId: 0 },

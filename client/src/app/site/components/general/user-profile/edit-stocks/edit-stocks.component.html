@@ -20,19 +20,28 @@
     </ng-template>
   </p-toolbar>
 
-  <p-table [value]="goodsService.stocks">
+  <p-table [value]="stockService.stocks">
     <ng-template pTemplate="header">
       <tr>
         <th>ID</th>
         <th>Title</th>
-        <th [style]="{'width' : '7rem'}"></th>
+        <th [style]="{ width: '7rem' }"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-stock>
       <tr>
         <td>{{ stock.id }}</td>
         <td>{{ stock.title }}</td>
-        <td><button pButton pRipple type="button" class="p-button-danger" icon="pi pi-trash" (click)="deleteStock(stock.id)"></button></td>
+        <td>
+          <button
+            pButton
+            pRipple
+            type="button"
+            class="p-button-danger"
+            icon="pi pi-trash"
+            (click)="deleteStock(stock.id)"
+          ></button>
+        </td>
       </tr>
     </ng-template>
   </p-table>
@@ -44,8 +53,16 @@
       <input id="title" type="text" pInputText [(ngModel)]="stockTitle" />
     </div>
     <div class="field">
-      <button pButton type="button" label="Додати" (click)="addStock()"></button>
+      <button
+        pButton
+        type="button"
+        label="Додати"
+        (click)="addStock()"
+      ></button>
     </div>
   </div>
 </p-dialog>
-<p-confirmDialog header="Видалити" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-confirmDialog
+  header="Видалити"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>

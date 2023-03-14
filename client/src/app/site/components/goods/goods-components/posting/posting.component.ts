@@ -1,3 +1,4 @@
+import { StockService } from './../../../../../services/stock.service'
 import { PostingDetailsComponent } from './../a-goods-common-components/posting-details/posting-details.component'
 import { formatDate } from '@angular/common'
 import { GoodsService } from '../../../../../services/goods.service'
@@ -15,7 +16,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog'
 export class PostingComponent implements OnInit {
   constructor(
     public dialogService: DialogService,
-    private goodsService: GoodsService
+    private stockService: StockService
   ) {}
 
   ref!: DynamicDialogRef
@@ -27,7 +28,7 @@ export class PostingComponent implements OnInit {
   }
 
   getAllPostings() {
-    this.goodsService.getAllPostings().subscribe({
+    this.stockService.getAllPostings().subscribe({
       next: (res: any) => {
         this.postings = res
       },

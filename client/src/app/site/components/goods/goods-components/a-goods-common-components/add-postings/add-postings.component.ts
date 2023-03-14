@@ -1,3 +1,4 @@
+import { StockService } from './../../../../../../services/stock.service'
 import { AgentsService } from '../../../../../../services/agents.service'
 import { PostingComponent } from './../../posting/posting.component'
 import { FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms'
@@ -21,6 +22,7 @@ export class AddPostingsComponent implements OnInit {
     private fb: FormBuilder,
     private primengConfig: PrimeNGConfig,
     public ref: DynamicDialogRef,
+    public stockService: StockService,
     public goodsService: GoodsService,
     private postingComp: PostingComponent,
     public agentService: AgentsService
@@ -35,7 +37,7 @@ export class AddPostingsComponent implements OnInit {
     if (this.goodsService.allGoods.length === 0) {
       this.goodsService.getAllGoods().subscribe()
     }
-    this.goodsService.getStocks()
+    this.stockService.getStocks()
     this.agentService.getAllAgents()
 
     this.currensies = [
@@ -70,7 +72,7 @@ export class AddPostingsComponent implements OnInit {
     delete data.currency
     delete data.stock
 
-    this.goodsService.createPosting(stock, data).subscribe((next) => {
+    this.stockService.createPosting(stock, data).subscribe((next) => {
       this.ref.close()
       this.postingComp.getAllPostings()
     })

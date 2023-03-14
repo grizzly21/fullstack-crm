@@ -1,3 +1,4 @@
+import { LeavingsService } from './../../../../../services/leavings.service'
 import { formatDate } from '@angular/common'
 import { GoodsService } from '../../../../../services/goods.service'
 import { Component, OnInit } from '@angular/core'
@@ -10,9 +11,9 @@ import { Component, OnInit } from '@angular/core'
 export class LeavingsComponent implements OnInit {
   leavings: any = []
 
-  constructor(public goodsService: GoodsService) {}
+  constructor(public leavingsService: LeavingsService) {}
 
   ngOnInit(): void {
-    this.goodsService.getAllLeavings()
+    this.leavingsService.getAllLeavings()
   }
 }
