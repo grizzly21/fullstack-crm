@@ -1,14 +1,14 @@
-import { Router } from '@angular/router';
-import { AuthService } from '../../auth/services/auth.service';
-import { Observable, of, tap, catchError } from 'rxjs';
+import { Router } from '@angular/router'
+import { AuthService } from '../../services/auth.service'
+import { Observable, of, tap, catchError } from 'rxjs'
 import {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
   HttpResponse,
-} from '@angular/common/http';
-import { Injectable } from '@angular/core';
+} from '@angular/common/http'
+import { Injectable } from '@angular/core'
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -23,19 +23,19 @@ export class TokenInterceptor implements HttpInterceptor {
         setHeaders: {
           Authorization: `Bearer ${this.authService.getToken()}`,
         },
-      });
+      })
     }
 
     return next.handle(req).pipe(
       tap(
         (evt) => {},
         (err: any) => {
-          if (err.status === 401){
+          if (err.status === 401) {
             this.router.navigate(['/login'])
           }
           return of(err)
         }
       )
-    );
+    )
   }
 }
