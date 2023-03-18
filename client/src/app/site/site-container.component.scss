@@ -1,0 +1,23 @@
+.container{
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: calc(100% - 70px);
+  transition: all .2s ease;
+
+  .second-container{
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 1440px;
+    width: 100%;
+  }
+}
+
+.open{
+  width: calc(100% - 70px);
+}
+
+.close{
+  width: calc(100% - 300px);
+}

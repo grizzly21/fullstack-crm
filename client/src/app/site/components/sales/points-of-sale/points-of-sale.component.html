@@ -1,0 +1,51 @@
+<div class="card">
+  <p-toolbar>
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="Додати точку"
+        icon="pi pi-plus"
+        class="p-button-success mr-2"
+        (click)="openDialog()"
+      ></button>
+    </ng-template>
+    <ng-template pTemplate="right">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          type="text"
+          pInputText
+          placeholder="Пошук"
+        />
+      </span>
+    </ng-template>
+  </p-toolbar>
+  <p-table [value]="pointsOfSales">
+    <ng-template pTemplate="header">
+      <tr>
+        <th [style]="{'max-width': '3rem'}">Активна</th>
+        <th>Найменування</th>
+        <th>Тип</th>
+        <th>Виручка</th>
+        <th>Чеки</th>
+        <th>Середній чек</th>
+        <th>Грошей в касі</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-point>
+      <tr>
+        <td>
+          <span *ngIf="point.isActive"><i class="pi pi-check"></i></span>
+          <span *ngIf="!point.isActive"><i class="pi pi-times"></i></span>
+        </td>
+        <td>{{point.name}}</td>
+        <td>{{point.type}}</td>
+        <td>{{point.receipts}}</td>
+        <td>{{point.tickets}}</td>
+        <td>{{point.averageTicket}}</td>
+        <td>{{point.moneyInCashRegister}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

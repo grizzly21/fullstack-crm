@@ -1,0 +1,32 @@
+<div class="card">
+  <p-toolbar styleClass="mb-3 mt-3">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="Категорія"
+        icon="pi pi-plus"
+        class="p-button-success mr-2"
+        (click)="showDialog()"
+      ></button>
+    </ng-template>
+    <ng-template pTemplate="right">
+      <button
+        pButton
+        icon="pi pi-times"
+        class="p-button-danger"
+        label="Delete"
+        (click)="confirmDelete()"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+  <p-tree
+    [value]="categoryService.categories"
+    selectionMode="single"
+    [(selection)]="selectionCategory"
+  ></p-tree>
+</div>
+<p-confirmDialog
+  header="Delete"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>

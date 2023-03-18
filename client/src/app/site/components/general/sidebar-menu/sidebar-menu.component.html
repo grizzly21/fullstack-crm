@@ -1,0 +1,35 @@
+<div class="sidebar" [ngClass]="toggle ? 'sidebar-open' : 'sidebar-close'">
+  <div class="logo">
+    <span>InShop</span>
+  </div>
+  <ul>
+    <li routerLink="/analytics">
+      <i class="pi pi-chart-line"></i>
+      <a>Показники</a>
+    </li>
+    <li routerLink="/goods">
+      <i class="pi pi-shopping-cart"></i>
+      <a>Товари</a>
+    </li>
+    <li routerLink="purchases">
+      <i class="pi pi-cart-plus"></i>
+      <a>Закупки</a>
+    </li>
+    <li routerLink="counterparties">
+      <i class="pi pi-users"></i>
+      <a>Контрагенти</a>
+    </li>
+    <li routerLink="sales">
+      <i class="pi pi-box"></i>
+      <a>Продажі</a>
+    </li>
+    <li routerLink="money">
+      <i class="pi pi-credit-card"></i>
+      <a>Гроші</a>
+    </li>
+    <li routerLink="/tasks">
+      <i class="pi pi-list"></i>
+      <a >Завдання</a>
+    </li>
+  </ul>
+</div>

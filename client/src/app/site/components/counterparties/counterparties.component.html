@@ -1,0 +1,48 @@
+<h3 class="page-header">Контрагенти</h3>
+<p-divider></p-divider>
+<div class="card">
+  <p-toolbar>
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="Додати контрагента"
+        icon="pi pi-plus"
+        class="p-button-success mr-2"
+        (click)="openDialog()"
+      ></button>
+    </ng-template>
+    <ng-template pTemplate="right">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          type="text"
+          pInputText
+          placeholder="Пошук"
+        />
+      </span>
+    </ng-template>
+  </p-toolbar>
+  <p-table [value]="agentsService.agents">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Найменування</th>
+        <th>Телефон</th>
+        <th>E-mail</th>
+        <th>Адреса</th>
+        <th>Статус</th>
+        <th>Створено</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-counterparty>
+      <tr>
+        <td>{{ counterparty.fullName }}</td>
+        <td>{{ counterparty.phoneNumber }}</td>
+        <td>{{ counterparty.email }}</td>
+        <td>{{ counterparty.address }}</td>
+        <td>{{ counterparty.status }}</td>
+        <td>{{ counterparty.addedOn | date : 'dd.MM.YYYY HH:mm' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

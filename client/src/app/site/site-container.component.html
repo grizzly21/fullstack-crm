@@ -1,0 +1,7 @@
+<app-sidebar-menu [toggle]="toggle"></app-sidebar-menu>
+<div class="container" [ngClass]="toggle ? 'close' : 'open'">
+  <app-header (sideBarToggle)="toggleSidebar($event)"></app-header>
+  <div class="second-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

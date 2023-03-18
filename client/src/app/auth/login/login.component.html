@@ -37,7 +37,7 @@
     <div class="form-action-button">
       <button
         type="submit"
-        [disabled]="loginForm.invalid && loginForm.disabled"
+        [disabled]="loginForm.invalid || loginForm.disabled"
       >
         login
       </button>

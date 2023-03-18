@@ -1,0 +1,59 @@
+<div class="card">
+  <p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="Додати товар"
+        icon="pi pi-plus"
+        class="p-button-success mr-2"
+        (click)="showDialog()"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+  <!-- Table for all goods by primeNG -->
+  <p-table #dt [value]="goodsService.allGoods" [rowHover]="true">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Зображення</th>
+        <th>Категорія</th>
+        <th>Найменування</th>
+        <th>Код</th>
+        <th>Артикул</th>
+        <th>Ціна</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-good>
+      <tr>
+        <td>
+          <img
+            [src]="link + good.attachments[0]?.id"
+            height="30px"
+            alt="Нема ніц"
+          />
+        </td>
+        <td>{{ good.category.name }}</td>
+        <td>{{ good.name }}</td>
+        <td>{{ good.code }}</td>
+        <td>{{ good.article }}</td>
+        <td>{{ good.price }} грн.</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            type="button"
+            class="p-button-danger"
+            icon="pi pi-trash"
+            (click)="deleteGood(good.id)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-confirmDialog
+  header="Delete"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>

@@ -1,0 +1,35 @@
+<div class="grid p-fluid">
+  <div class="col-12">
+    <form [formGroup]="addAgentForm" (ngSubmit)="onAddAgent()" novalidate>
+      <div class="field">
+        <label for="name">Найменування</label>
+        <input type="text" pInputText id="name" formControlName="fullName"/>
+      </div>
+      <div class="field">
+        <label for="phone">Номер телефону</label>
+        <p-inputMask mask="(999)-999-9999" formControlName="phoneNumber"></p-inputMask>
+      </div>
+      <div class="field">
+        <label for="email">E-mail</label>
+        <input type="email" pInputText formControlName="email"/>
+      </div>
+      <div class="field">
+        <label for="address">Адреса</label>
+        <input type="text" pInputText formControlName="address"/>
+      </div>
+      <div class="field">
+        <label for="status">Статус</label>
+        <input type="text" pInputText formControlName="status"/>
+      </div>
+      <div class="field">
+        <button
+          class="save_btn"
+          pButton
+          label="Зберегти"
+          type="submit"
+          [disabled]="addAgentForm.invalid"
+        ></button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+.save-btn {
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  width: 200px;
+}
+
+::ng-deep .p-dialog-content {
+  overflow-y: clip;
+}
+
+.product-list {
+  max-height: 550px;
+  overflow-y: auto;
+
+  &-inputs {
+    label {
+      position: sticky;
+      top: 0;
+      left: 0;
+    }
+
+    width: 100%;
+
+    .field {
+      margin-bottom: 0.5rem;
+    }
+  }
+}

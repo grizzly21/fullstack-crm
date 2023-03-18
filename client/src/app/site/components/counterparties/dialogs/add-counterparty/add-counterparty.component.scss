@@ -1,0 +1,9 @@
+form{
+  button{
+    margin-top: 0.5rem;
+
+    &:disabled{
+      cursor: not-allowed;
+    }
+  }
+}
